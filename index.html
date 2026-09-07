@@ -41,6 +41,7 @@
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
+    html,body{height:100%;}
     body{
       margin:0;
       background:
@@ -49,7 +50,7 @@
         var(--ivory);
       color:var(--ink);
       font-family:var(--sans);
-      overflow-x:hidden;
+      overflow:hidden;
     }
     body.nav-open{overflow:hidden}
     img{max-width:100%;display:block}
@@ -76,6 +77,19 @@
       position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
     }
+
+    /* O site usa seu próprio viewport de scroll.
+       Isso evita que previews/iframes tratem a página inteira como visível. */
+    .site-scroll{
+      height:100svh;
+      overflow-y:auto;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+      overscroll-behavior-y:contain;
+      scrollbar-gutter:stable;
+      position:relative;
+    }
+    body.nav-open .site-scroll{overflow:hidden}
 
     /* boot */
     .intro{
@@ -531,6 +545,316 @@
     }
     .schedule-item button::after{content:" ↗";color:#D6B879}
     .schedule-item button:hover{color:#D6B879}
+
+    /* =========================================================
+       AGENDAMENTO DENTRO DO SITE — PROTÓTIPO INTERATIVO
+       ========================================================= */
+    .booking-section{
+      background:
+        radial-gradient(circle at 8% 8%,rgba(214,184,121,.10),transparent 24%),
+        radial-gradient(circle at 92% 72%,rgba(140,98,112,.16),transparent 28%),
+        #563743;
+      color:#F9F3EC;
+      overflow:hidden;
+    }
+    .booking-section .section-sub{color:#CDBEBA}
+    .booking-shell{
+      display:grid;
+      grid-template-columns:.68fr 1.32fr;
+      gap:42px;
+      align-items:start;
+    }
+    .booking-intro{
+      position:sticky;
+      top:118px;
+    }
+    .booking-intro h2{
+      font-size:clamp(4rem,7vw,7.2rem);
+      line-height:.84;
+      letter-spacing:-.052em;
+      margin:14px 0 24px;
+    }
+    .booking-intro h2 em{
+      color:#D6B879;
+      font-style:normal;
+    }
+    .booking-intro p{
+      max-width:500px;
+      color:#CDBEBA;
+      line-height:1.85;
+      font-size:13px;
+    }
+    .booking-demo-note{
+      margin-top:25px;
+      padding:15px 16px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+      color:#BFB0AC;
+      font-size:10px;
+      line-height:1.65;
+    }
+    .booking-demo-note b{
+      display:block;
+      color:#D9BD84;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:8px;
+      margin-bottom:5px;
+    }
+
+    .booking-panel{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      padding:28px;
+      box-shadow:0 28px 80px rgba(30,18,23,.18);
+    }
+    .booking-progress{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+      margin-bottom:28px;
+    }
+    .booking-progress span{
+      height:3px;
+      border-radius:999px;
+      background:rgba(255,255,255,.11);
+      transition:.35s ease;
+    }
+    .booking-progress span.active{
+      background:linear-gradient(90deg,#C79B53,#E4CE9E);
+      box-shadow:0 0 18px rgba(214,184,121,.18);
+    }
+    .booking-step{display:none}
+    .booking-step.active{display:block;animation:bookingStepIn .45s ease both}
+    @keyframes bookingStepIn{
+      from{opacity:0;transform:translateY(13px)}
+      to{opacity:1;transform:none}
+    }
+    .booking-kicker{
+      font-size:8px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      color:#D6B879;
+      margin-bottom:7px;
+    }
+    .booking-step h3{
+      font-size:36px;
+      line-height:1;
+      margin:0 0 8px;
+    }
+    .booking-help{
+      color:#BDAEAA;
+      font-size:11px;
+      line-height:1.65;
+      margin:0 0 22px;
+    }
+
+    .procedure-options{display:grid;gap:9px}
+    .procedure-option{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      text-align:left;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F7F1EA;
+      padding:16px 17px;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.25s ease;
+    }
+    .procedure-option:hover,
+    .procedure-option.selected{
+      border-color:rgba(214,184,121,.48);
+      background:rgba(214,184,121,.08);
+      transform:translateX(4px);
+    }
+    .procedure-option small{
+      display:block;
+      color:#D6B879;
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:4px;
+    }
+    .procedure-option strong{
+      display:block;
+      font:500 21px/1.1 var(--serif);
+    }
+    .procedure-option i{
+      width:25px;height:25px;border-radius:50%;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      font-style:normal;color:#D6B879;
+      transition:.25s;
+    }
+    .procedure-option.selected i{
+      background:#D6B879;color:#523540;border-color:#D6B879
+    }
+
+    .date-options{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .date-option{
+      min-height:84px;
+      border-radius:15px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F8F2EA;
+      cursor:pointer;
+      padding:10px 7px;
+      transition:.25s;
+    }
+    .date-option:hover,
+    .date-option.selected{
+      border-color:rgba(214,184,121,.46);
+      background:rgba(214,184,121,.09);
+      transform:translateY(-3px)
+    }
+    .date-option small{
+      display:block;color:#B8AAA6;font-size:8px;text-transform:uppercase;letter-spacing:.08em
+    }
+    .date-option b{
+      display:block;font:500 29px/1 var(--serif);margin:4px 0;color:#F8F2EA
+    }
+    .date-option span{font-size:8px;color:#D6B879;text-transform:uppercase;letter-spacing:.09em}
+
+    .time-options{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .time-option{
+      min-height:50px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F8F2EA;
+      cursor:pointer;
+      transition:.25s;
+      font-size:11px;
+    }
+    .time-option:hover,
+    .time-option.selected{
+      background:#D6B879;
+      color:#533641;
+      border-color:#D6B879;
+      transform:translateY(-2px)
+    }
+
+    .booking-summary{
+      margin:18px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .summary-line{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      padding:11px 0;
+      color:#C4B6B1;
+      font-size:10px;
+    }
+    .summary-line + .summary-line{border-top:1px solid rgba(255,255,255,.065)}
+    .summary-line b{color:#F7EFE8;font-weight:500;text-align:right}
+
+    .booking-form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:18px;
+    }
+    .booking-field{display:grid;gap:6px}
+    .booking-field.full{grid-column:1/-1}
+    .booking-field label{
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      color:#D5C5C0;
+    }
+    .booking-field input{
+      min-height:48px;
+      width:100%;
+      border-radius:13px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      color:#F8F2EA;
+      padding:0 13px;
+      outline:none;
+    }
+    .booking-field input:focus{border-color:rgba(214,184,121,.55)}
+    .booking-field input::placeholder{color:#8F7E7B}
+
+    .booking-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+    .booking-back{
+      border:0;background:none;color:#BFAEAA;cursor:pointer;
+      font-size:9px;text-transform:uppercase;letter-spacing:.12em;
+      padding:10px 0;
+    }
+    .booking-back:hover{color:#F7EFE8}
+    .booking-next[disabled]{
+      opacity:.35;cursor:not-allowed;transform:none!important
+    }
+    .booking-success{
+      text-align:center;
+      padding:34px 10px 18px;
+    }
+    .booking-success-mark{
+      width:64px;height:64px;border-radius:50%;
+      display:grid;place-items:center;
+      margin:0 auto 20px;
+      color:#563743;
+      background:#D6B879;
+      font-size:24px;
+      box-shadow:0 18px 45px rgba(214,184,121,.18)
+    }
+    .booking-success h3{font-size:44px;margin:0 0 12px}
+    .booking-success p{
+      max-width:500px;margin:0 auto;color:#BFAFAD;font-size:11px;line-height:1.7
+    }
+    .support-box{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.09);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+    .support-box div strong{
+      display:block;
+      font:500 18px var(--serif);
+      margin-bottom:3px;
+    }
+    .support-box div span{
+      display:block;color:#AC9D99;font-size:9px;line-height:1.5
+    }
+
+    @media(max-width:1000px){
+      .booking-shell{grid-template-columns:1fr}
+      .booking-intro{position:static}
+    }
+    @media(max-width:620px){
+      .booking-panel{padding:19px}
+      .date-options{grid-template-columns:repeat(2,1fr)}
+      .time-options{grid-template-columns:repeat(3,1fr)}
+      .booking-form{grid-template-columns:1fr}
+      .booking-field.full{grid-column:auto}
+      .support-box{align-items:flex-start;flex-direction:column}
+    }
 
     /* final CTA */
     .final-cta{
@@ -1014,7 +1338,7 @@
         </div>
 
         <div class="nav-actions">
-          <button class="button gold placeholder-link" type="button">Agendar</button>
+          <button class="button gold booking-trigger" type="button">Agendar online</button>
           <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
             <span></span><span></span>
           </button>
@@ -1030,10 +1354,11 @@
       <a href="#especialidades">Especialidades</a>
       <a href="#profissionais">Profissionais</a>
       <a href="#contato">Contato</a>
-      <button class="button gold placeholder-link" type="button">Agendar consulta</button>
+      <button class="button gold booking-trigger" type="button">Agendar online</button>
     </div>
   </div>
 
+  <div class="site-scroll" id="siteScroll">
   <main>
     <section class="hero" id="inicio">
       <div class="wrap hero-grid">
@@ -1049,7 +1374,7 @@
           </p>
           <div class="hero-actions reveal">
             <a href="#clinica" class="button ghost wide">Conheça a clínica</a>
-            <button class="button gold wide placeholder-link" type="button">Agendar consulta</button>
+            <button class="button gold wide booking-trigger" type="button">Agendar online</button>
           </div>
 
           <div class="hero-micro reveal">
@@ -1365,50 +1690,158 @@
       </div>
     </section>
 
-    <section class="schedule" id="agendamento">
-      <div class="wrap schedule-grid">
-        <div>
-          <div class="section-number reveal" style="color:#D4B878">07 / Agendamento</div>
-          <h2 class="section-title reveal title-reveal">Encontre o cuidado <em style="color:#D9BD84">ideal.</em></h2>
-          <p class="section-sub reveal">
-            Escolha o atendimento e siga diretamente para o WhatsApp.
-            Os links abaixo estão preparados para receber os destinos oficiais da clínica.
+    <section class="booking-section" id="agendamento">
+      <div class="wrap booking-shell">
+        <div class="booking-intro reveal">
+          <div class="section-number" style="color:#D6B879">07 / Agendamento Online</div>
+          <h2>Seu cuidado, no <em>seu tempo.</em></h2>
+          <p>
+            Escolha o atendimento, consulte uma data e um horário disponíveis e finalize sua solicitação
+            sem precisar sair do site.
           </p>
-          <button class="button gold wide placeholder-link reveal" type="button" style="margin-top:24px">Falar no WhatsApp</button>
+
+          <div class="booking-demo-note">
+            <b>Demonstração comercial</b>
+            Nesta prévia, datas e horários são apenas demonstrativos. Na versão oficial,
+            esta interface será conectada à disponibilidade real da Clínica Skin Lounge.
+          </div>
         </div>
 
-        <div class="schedule-menu reveal">
-          <div class="schedule-group">
-            <div class="schedule-group-title"><span>Dermatologia</span><span>01</span></div>
-            <div class="schedule-item"><span>Consulta — Dermatologia Clínica</span><button class="placeholder-link">Agendar</button></div>
-            <div class="schedule-item"><span>Consulta — Dermatologia Estética</span><button class="placeholder-link">Agendar</button></div>
+        <div class="booking-panel reveal scale" id="bookingPanel">
+          <div class="booking-progress" aria-hidden="true">
+            <span class="active"></span><span></span><span></span><span></span>
           </div>
 
-          <div class="schedule-group">
-            <div class="schedule-group-title"><span>Tricologia</span><span>02</span></div>
-            <div class="schedule-item"><span>Consulta — Tricologia (capilar)</span><button class="placeholder-link">Agendar</button></div>
+          <!-- STEP 1 -->
+          <div class="booking-step active" data-step="1">
+            <div class="booking-kicker">Etapa 01 / 04</div>
+            <h3>Escolha o atendimento.</h3>
+            <p class="booking-help">Selecione a opção que melhor corresponde ao cuidado que você procura.</p>
+
+            <div class="procedure-options">
+              <button class="procedure-option" type="button" data-procedure="Consulta — Dermatologia Clínica">
+                <span><small>Dermatologia</small><strong>Consulta — Dermatologia Clínica</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Dermatologia Estética">
+                <span><small>Dermatologia</small><strong>Consulta — Dermatologia Estética</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Tricologia (capilar)">
+                <span><small>Tricologia</small><strong>Consulta — Tricologia (capilar)</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Nutricionista">
+                <span><small>Nutrição</small><strong>Consulta — Nutricionista</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Esteticista">
+                <span><small>Estética</small><strong>Consulta — Esteticista</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Limpeza de Pele — Esteticista">
+                <span><small>Estética</small><strong>Limpeza de Pele — Esteticista</strong></span><i>✓</i>
+              </button>
+            </div>
+
+            <div class="booking-actions">
+              <span></span>
+              <button class="button gold booking-next" id="bookingNext1" type="button" disabled>Escolher data →</button>
+            </div>
           </div>
 
-          <div class="schedule-group">
-            <div class="schedule-group-title"><span>Nutrição</span><span>03</span></div>
-            <div class="schedule-item"><span>Consulta — Nutricionista</span><button class="placeholder-link">Agendar</button></div>
+          <!-- STEP 2 -->
+          <div class="booking-step" data-step="2">
+            <div class="booking-kicker">Etapa 02 / 04</div>
+            <h3>Escolha uma data.</h3>
+            <p class="booking-help">Datas abaixo são demonstrativas e serão sincronizadas com a agenda oficial.</p>
+
+            <div class="date-options" id="dateOptions"></div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="1">← Voltar</button>
+              <button class="button gold booking-next" id="bookingNext2" type="button" disabled>Ver horários →</button>
+            </div>
           </div>
 
-          <div class="schedule-group">
-            <div class="schedule-group-title"><span>Estética</span><span>04</span></div>
-            <div class="schedule-item"><span>Consulta — Esteticista</span><button class="placeholder-link">Agendar</button></div>
-            <div class="schedule-item"><span>Limpeza de Pele — Esteticista</span><button class="placeholder-link">Agendar</button></div>
+          <!-- STEP 3 -->
+          <div class="booking-step" data-step="3">
+            <div class="booking-kicker">Etapa 03 / 04</div>
+            <h3>Escolha um horário.</h3>
+            <p class="booking-help">Somente horários disponíveis para a data selecionada serão exibidos na versão oficial.</p>
+
+            <div class="time-options" id="timeOptions"></div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="2">← Voltar</button>
+              <button class="button gold booking-next" id="bookingNext3" type="button" disabled>Continuar →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="booking-step" data-step="4">
+            <div class="booking-kicker">Etapa 04 / 04</div>
+            <h3>Confirme seus dados.</h3>
+            <p class="booking-help">Na versão oficial, estes dados serão enviados com segurança ao sistema de agendamento da clínica.</p>
+
+            <div class="booking-summary">
+              <div class="summary-line"><span>Atendimento</span><b id="summaryProcedure">—</b></div>
+              <div class="summary-line"><span>Data</span><b id="summaryDate">—</b></div>
+              <div class="summary-line"><span>Horário</span><b id="summaryTime">—</b></div>
+            </div>
+
+            <form class="booking-form" id="bookingForm">
+              <div class="booking-field full">
+                <label for="patientName">Nome</label>
+                <input id="patientName" name="name" type="text" placeholder="Seu nome completo" required>
+              </div>
+              <div class="booking-field">
+                <label for="patientPhone">Telefone</label>
+                <input id="patientPhone" name="phone" type="tel" placeholder="(00) 00000-0000" required>
+              </div>
+              <div class="booking-field">
+                <label for="patientEmail">E-mail</label>
+                <input id="patientEmail" name="email" type="email" placeholder="voce@exemplo.com" required>
+              </div>
+            </form>
+
+            <div class="booking-demo-note">
+              <b>Privacidade nesta prévia</b>
+              Nenhuma informação preenchida nesta demonstração é enviada ou armazenada.
+            </div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="3">← Voltar</button>
+              <button class="button gold booking-next" id="bookingConfirm" type="button">Confirmar agendamento</button>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="booking-step" data-step="5">
+            <div class="booking-success">
+              <div class="booking-success-mark">✓</div>
+              <div class="booking-kicker">Fluxo demonstrativo concluído</div>
+              <h3>Agendamento solicitado.</h3>
+              <p>
+                Na versão oficial, esta etapa confirmará o horário no sistema da clínica e poderá enviar
+                a confirmação ao paciente por e-mail ou outro canal definido pela Skin Lounge.
+              </p>
+              <button class="button ghost" id="bookingRestart" type="button" style="margin-top:22px">Novo agendamento</button>
+            </div>
+          </div>
+
+          <div class="support-box">
+            <div>
+              <strong>Precisa de ajuda?</strong>
+              <span>O WhatsApp permanece disponível apenas como canal de suporte ao paciente.</span>
+            </div>
+            <button class="button ghost whatsapp-support" type="button">Falar no WhatsApp</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="final-cta">
+<section class="final-cta">
       <div class="wrap">
         <div class="eyebrow reveal" style="justify-content:center;color:#D4B878">Skin Lounge • Cruzeiro — SP</div>
         <h2 class="reveal title-reveal">Seu cuidado começa com uma conversa.</h2>
-        <p class="reveal">Conheça nossas possibilidades de atendimento e encontre o cuidado mais adequado para você.</p>
-        <button class="button gold wide placeholder-link reveal magnetic" type="button">Agendar pelo WhatsApp ↗</button>
+        <p class="reveal">Escolha seu atendimento, consulte a disponibilidade e agende diretamente pela experiência digital da Skin Lounge.</p>
+        <button class="button gold wide booking-trigger reveal magnetic" type="button">Agendar online ↗</button>
       </div>
     </section>
 
@@ -1436,8 +1869,8 @@
               <span>HORÁRIO DE ATENDIMENTO</span>
             </div>
             <div class="info-line">
-              <small>WhatsApp</small>
-              <span>LINK / NÚMERO A INSERIR</span>
+              <small>WhatsApp — suporte</small>
+              <span>LINK / NÚMERO DE SUPORTE A INSERIR</span>
             </div>
             <div class="info-line">
               <small>Instagram</small>
@@ -1481,7 +1914,7 @@
         <div class="footer-col">
           <b>Contato</b>
           <a href="https://www.instagram.com/clinicaskinlounge/" target="_blank" rel="noopener noreferrer">@clinicaskinlounge ↗</a>
-          <button class="button ghost placeholder-link" type="button" style="margin-top:8px">Agende sua consulta</button>
+          <button class="button ghost whatsapp-support" type="button" style="margin-top:8px">Suporte pelo WhatsApp</button>
           <span style="margin-top:16px">Cruzeiro — SP</span>
         </div>
       </div>
@@ -1492,6 +1925,7 @@
       </div>
     </div>
   </footer>
+  </div><!-- /site-scroll -->
 
   <script>
     // Safe intro exit
@@ -1504,22 +1938,24 @@
     });
 
 
-    // Linha de progresso no topo
+    const siteScroll = document.getElementById('siteScroll');
+
+    // Linha de progresso no topo — baseada no viewport interno do site
     const scrollProgress = document.getElementById('scrollProgress');
     const updateScrollProgress = () => {
-      if(!scrollProgress) return;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      if(!scrollProgress || !siteScroll) return;
+      const max = siteScroll.scrollHeight - siteScroll.clientHeight;
+      const pct = max > 0 ? (siteScroll.scrollTop / max) * 100 : 0;
       scrollProgress.style.width = pct + '%';
     };
     updateScrollProgress();
-    window.addEventListener('scroll', updateScrollProgress, {passive:true});
+    siteScroll?.addEventListener('scroll', updateScrollProgress, {passive:true});
 
     // Header
     const header = document.getElementById('header');
-    const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 30);
+    const updateHeader = () => header?.classList.toggle('scrolled', (siteScroll?.scrollTop || 0) > 30);
     updateHeader();
-    window.addEventListener('scroll', updateHeader, {passive:true});
+    siteScroll?.addEventListener('scroll', updateHeader, {passive:true});
 
     // Mobile menu
     const toggle = document.getElementById('menuToggle');
@@ -1538,12 +1974,10 @@
       if(e.key === 'Escape') setMenu(false);
     });
 
-    // Reveal on scroll — mesmo mecanismo usado no portfólio do Guedes
+    // Reveal on scroll — agora observado dentro do viewport próprio do site
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!reduceMotion && 'IntersectionObserver' in window) {
-      document.documentElement.classList.add('motion-ready');
-
+    if (!reduceMotion && 'IntersectionObserver' in window && siteScroll) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -1552,24 +1986,20 @@
           }
         });
       }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -4% 0px'
+        root: siteScroll,
+        threshold: 0.16,
+        rootMargin: '0px 0px -12% 0px'
       });
 
-      // Cada grupo reinicia seu próprio stagger, em vez de usar a posição global na página.
       document.querySelectorAll('.specialties-grid, .tech-list, .professional-grid, .review-grid').forEach((group) => {
         group.querySelectorAll('.reveal').forEach((el, index) => {
-          el.style.transitionDelay = `${index * 140}ms`;
+          el.style.transitionDelay = `${index * 150}ms`;
         });
       });
 
-      // Elementos fora de grupos recebem um pequeno ritmo sequencial.
-      document.querySelectorAll('.reveal').forEach((el, index) => {
-        if (!el.style.transitionDelay) {
-          el.style.transitionDelay = `${Math.min(index % 3, 2) * 85}ms`;
-        }
-        observer.observe(el);
-      });
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
     }
 
     // Pointer glow
@@ -1601,7 +2031,7 @@
     // Subtle parallax
     const parallaxArt = document.getElementById('parallaxArt');
     if(!reduceMotion){
-      window.addEventListener('scroll', () => {
+      siteScroll?.addEventListener('scroll', () => {
         if(!parallaxArt) return;
         const r = parallaxArt.getBoundingClientRect();
         if(r.bottom > 0 && r.top < innerHeight){
@@ -1623,14 +2053,207 @@
       btn.addEventListener('pointerleave', () => btn.style.transform = '');
     });
 
+
+    // ---------------------------------------------------------
+    // AGENDAMENTO ONLINE — demonstração funcional
+    // ---------------------------------------------------------
+    const bookingState = {
+      procedure: '',
+      dateISO: '',
+      dateLabel: '',
+      time: ''
+    };
+
+    const bookingPanel = document.getElementById('bookingPanel');
+    const bookingSteps = [...document.querySelectorAll('.booking-step')];
+    const bookingProgress = [...document.querySelectorAll('.booking-progress span')];
+
+    function goToBookingStep(step){
+      bookingSteps.forEach(el => el.classList.toggle('active', Number(el.dataset.step) === step));
+      bookingProgress.forEach((el, index) => el.classList.toggle('active', index < Math.min(step, 4)));
+      if(bookingPanel){
+        bookingPanel.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    }
+
+    function scrollToBooking(){
+      document.getElementById('agendamento')?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    document.querySelectorAll('.booking-trigger').forEach(btn => {
+      btn.addEventListener('click', scrollToBooking);
+    });
+
+    // Speciality "Conhecer" links now take the visitor to online booking.
+    document.querySelectorAll('.specialty-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToBooking();
+      });
+    });
+
+    // Step 1
+    const procedureButtons = [...document.querySelectorAll('.procedure-option')];
+    const next1 = document.getElementById('bookingNext1');
+
+    procedureButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        procedureButtons.forEach(item => item.classList.remove('selected'));
+        btn.classList.add('selected');
+        bookingState.procedure = btn.dataset.procedure || '';
+        next1.disabled = false;
+      });
+    });
+
+    next1?.addEventListener('click', () => {
+      buildDemoDates();
+      goToBookingStep(2);
+    });
+
+    // Demo date availability.
+    // Replace this generator with the clinic's real scheduling API/database.
+    const dateOptions = document.getElementById('dateOptions');
+    const next2 = document.getElementById('bookingNext2');
+    const weekdays = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+    function buildDemoDates(){
+      if(!dateOptions) return;
+      dateOptions.innerHTML = '';
+      bookingState.dateISO = '';
+      bookingState.dateLabel = '';
+      next2.disabled = true;
+
+      const cursor = new Date();
+      cursor.setDate(cursor.getDate() + 1);
+
+      let created = 0;
+      while(created < 8){
+        if(cursor.getDay() !== 0){
+          const d = new Date(cursor);
+          const iso = [
+            d.getFullYear(),
+            String(d.getMonth()+1).padStart(2,'0'),
+            String(d.getDate()).padStart(2,'0')
+          ].join('-');
+          const label = `${String(d.getDate()).padStart(2,'0')} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'date-option';
+          btn.dataset.iso = iso;
+          btn.dataset.label = label;
+          btn.innerHTML = `<small>${weekdays[d.getDay()]}</small><b>${String(d.getDate()).padStart(2,'0')}</b><span>${months[d.getMonth()]} · demo</span>`;
+
+          btn.addEventListener('click', () => {
+            dateOptions.querySelectorAll('.date-option').forEach(item => item.classList.remove('selected'));
+            btn.classList.add('selected');
+            bookingState.dateISO = iso;
+            bookingState.dateLabel = label;
+            next2.disabled = false;
+          });
+
+          dateOptions.appendChild(btn);
+          created++;
+        }
+        cursor.setDate(cursor.getDate() + 1);
+      }
+    }
+
+    next2?.addEventListener('click', () => {
+      buildDemoTimes();
+      goToBookingStep(3);
+    });
+
+    // Step 3
+    const timeOptions = document.getElementById('timeOptions');
+    const next3 = document.getElementById('bookingNext3');
+
+    function buildDemoTimes(){
+      if(!timeOptions) return;
+      timeOptions.innerHTML = '';
+      bookingState.time = '';
+      next3.disabled = true;
+
+      // Demonstrative only. This array is NOT clinic availability.
+      const slotSets = [
+        ['09:00','10:30','14:00','15:30'],
+        ['08:30','11:00','13:30','16:00','17:30'],
+        ['09:30','11:30','14:30','16:30']
+      ];
+      const seed = bookingState.dateISO
+        ? Number(bookingState.dateISO.slice(-2)) % slotSets.length
+        : 0;
+
+      slotSets[seed].forEach(time => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option';
+        btn.textContent = time;
+        btn.addEventListener('click', () => {
+          timeOptions.querySelectorAll('.time-option').forEach(item => item.classList.remove('selected'));
+          btn.classList.add('selected');
+          bookingState.time = time;
+          next3.disabled = false;
+        });
+        timeOptions.appendChild(btn);
+      });
+    }
+
+    next3?.addEventListener('click', () => {
+      document.getElementById('summaryProcedure').textContent = bookingState.procedure || '—';
+      document.getElementById('summaryDate').textContent = bookingState.dateLabel || '—';
+      document.getElementById('summaryTime').textContent = bookingState.time || '—';
+      goToBookingStep(4);
+    });
+
+    // Back buttons
+    document.querySelectorAll('[data-back]').forEach(btn => {
+      btn.addEventListener('click', () => goToBookingStep(Number(btn.dataset.back)));
+    });
+
+    // Step 4 confirmation: demo only, no network request or persistence.
+    const bookingForm = document.getElementById('bookingForm');
+    document.getElementById('bookingConfirm')?.addEventListener('click', () => {
+      if(!bookingForm?.reportValidity()) return;
+      goToBookingStep(5);
+    });
+
+    document.getElementById('bookingRestart')?.addEventListener('click', () => {
+      bookingState.procedure = '';
+      bookingState.dateISO = '';
+      bookingState.dateLabel = '';
+      bookingState.time = '';
+      procedureButtons.forEach(item => item.classList.remove('selected'));
+      if(bookingForm) bookingForm.reset();
+      if(next1) next1.disabled = true;
+      goToBookingStep(1);
+    });
+
+    // WhatsApp remains secondary support only.
+    document.querySelectorAll('.whatsapp-support').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showPrototypeToast('WhatsApp de suporte', 'Na versão oficial, este botão será conectado ao canal de suporte da clínica.');
+      });
+    });
+
     // Placeholder actions
     const prototypeToast = document.getElementById('prototypeToast');
     let toastTimer;
-    function placeholderNotice(){
+
+    function showPrototypeToast(title='Protótipo comercial', message='Este botão será conectado ao link oficial da clínica na versão final.'){
       if(!prototypeToast) return;
+      const titleEl = prototypeToast.querySelector('strong');
+      const textEl = prototypeToast.querySelector('span');
+      if(titleEl) titleEl.textContent = title;
+      if(textEl) textEl.textContent = message;
       prototypeToast.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => prototypeToast.classList.remove('show'), 3000);
+      toastTimer = setTimeout(() => prototypeToast.classList.remove('show'), 3200);
+    }
+
+    function placeholderNotice(){
+      showPrototypeToast();
     }
     document.querySelectorAll('.placeholder-link').forEach(el => {
       el.addEventListener('click', placeholderNotice);
