@@ -891,6 +891,83 @@
       pointer-events:none;
     }
 
+    /* =========================================================
+       V3 — REVEAL IDÊNTICO AO PORTFÓLIO DO GUEDES
+       Simples, robusto e fácil de perceber.
+       ========================================================= */
+
+    /* Neutraliza os experimentos anteriores de reveal/mask. */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .title-reveal,
+    .stagger-item{
+      opacity:1;
+      transform:none;
+      filter:none;
+      clip-path:none;
+    }
+
+    .image-reveal::after{display:none!important}
+    .section-accent{display:none!important}
+
+    /* Estado inicial só é ativado quando JS + IntersectionObserver existem. */
+    .motion-ready .reveal{
+      opacity:0!important;
+      transform:translateY(42px)!important;
+      filter:none!important;
+      clip-path:none!important;
+      transition:
+        opacity 1.05s ease,
+        transform 1.05s cubic-bezier(.16,1,.3,1)!important;
+      will-change:opacity,transform;
+    }
+
+    .motion-ready .reveal.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    /* Imagens entram com um zoom mínimo, ainda usando o mesmo visible. */
+    .motion-ready .reveal.scale{
+      opacity:0!important;
+      transform:translateY(34px) scale(.965)!important;
+    }
+
+    .motion-ready .reveal.scale.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    /* Cards recebem stagger perceptível sem mudar o mecanismo. */
+    .motion-ready .stagger-item{
+      opacity:0!important;
+      transform:translateY(46px)!important;
+    }
+
+    .motion-ready .stagger-item.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    @media(max-width:610px){
+      .motion-ready .reveal{
+        transform:translateY(30px)!important;
+      }
+      .motion-ready .reveal.scale{
+        transform:translateY(24px) scale(.975)!important;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .motion-ready .reveal,
+      .motion-ready .stagger-item{
+        opacity:1!important;
+        transform:none!important;
+        transition:none!important;
+      }
+    }
+
   </style>
 
   <div class="prototype-toast" id="prototypeToast" role="status" aria-live="polite">
@@ -901,12 +978,10 @@
     </div>
   </div>
 
-  <script>
-    document.documentElement.classList.add('js');
-  </script>
 </head>
 
 <body>
+  <!-- Scroll reveal: mesmo mecanismo do portfolio marceloguedesss.github.io -->
   <div class="scroll-progress" id="scrollProgress"></div>
   <div class="grain"></div>
   <div class="ambient" id="ambient"></div>
@@ -1030,7 +1105,7 @@
           <div class="position-stamp">Imagem conceitual • substituir por material oficial</div>
         </div>
 
-        <div class="position-copy reveal-right">
+        <div class="position-copy reveal">
           <div class="section-number reveal">01 / A Clínica</div>
           <h2 class="reveal title-reveal">Um novo olhar sobre o <em>cuidado.</em></h2>
           <p class="reveal">
@@ -1302,7 +1377,7 @@
           <button class="button gold wide placeholder-link reveal" type="button" style="margin-top:24px">Falar no WhatsApp</button>
         </div>
 
-        <div class="schedule-menu reveal-right">
+        <div class="schedule-menu reveal">
           <div class="schedule-group">
             <div class="schedule-group-title"><span>Dermatologia</span><span>01</span></div>
             <div class="schedule-item"><span>Consulta — Dermatologia Clínica</span><button class="placeholder-link">Agendar</button></div>
@@ -1348,7 +1423,7 @@
         </div>
 
         <div class="location-grid">
-          <div class="location-info reveal-left">
+          <div class="location-info reveal">
             <div class="eyebrow">Localização</div>
             <h3>Cruzeiro — SP</h3>
 
@@ -1463,67 +1538,38 @@
       if(e.key === 'Escape') setMenu(false);
     });
 
-    // Reveal on scroll — versão cinematográfica
+    // Reveal on scroll — mesmo mecanismo usado no portfólio do Guedes
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Acrescenta linhas animadas nos cabeçalhos
-    document.querySelectorAll('.section-head').forEach((head) => {
-      const line = document.createElement('div');
-      line.className = 'section-accent reveal';
-      head.parentElement.insertBefore(line, head.nextSibling);
-      line.style.marginTop = '-24px';
-      line.style.marginBottom = '38px';
-    });
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('motion-ready');
 
-    if(!reduceMotion){
-      const revealObserver = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if(entry.isIntersecting){
-            const el = entry.target;
-            el.classList.add('visible');
-            revealObserver.unobserve(el);
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
         });
       }, {
-        threshold: .16,
-        rootMargin: '0px 0px -12% 0px'
+        threshold: 0.12,
+        rootMargin: '0px 0px -4% 0px'
       });
 
-      // observa todos os tipos de entrada
-      const revealTargets = document.querySelectorAll(
-        '.reveal, .reveal-left, .reveal-right, .title-reveal, .stagger-item, .section-accent'
-      );
-
-      revealTargets.forEach((el) => revealObserver.observe(el));
-
-      // stagger real por grupo
-      [
-        '.specialties-grid',
-        '.tech-list',
-        '.professional-grid',
-        '.review-grid'
-      ].forEach(selector => {
-        const group = document.querySelector(selector);
-        if(!group) return;
-        group.querySelectorAll('.stagger-item').forEach((el, index) => {
-          el.style.transitionDelay = `${index * 130}ms`;
+      // Cada grupo reinicia seu próprio stagger, em vez de usar a posição global na página.
+      document.querySelectorAll('.specialties-grid, .tech-list, .professional-grid, .review-grid').forEach((group) => {
+        group.querySelectorAll('.reveal').forEach((el, index) => {
+          el.style.transitionDelay = `${index * 140}ms`;
         });
       });
 
-      // elementos do hero entram em sequência logo após a intro
-      document.querySelectorAll('.hero .reveal').forEach((el, index) => {
-        el.style.transitionDelay = `${index * 110}ms`;
+      // Elementos fora de grupos recebem um pequeno ritmo sequencial.
+      document.querySelectorAll('.reveal').forEach((el, index) => {
+        if (!el.style.transitionDelay) {
+          el.style.transitionDelay = `${Math.min(index % 3, 2) * 85}ms`;
+        }
+        observer.observe(el);
       });
-
-      // garante hero visível após intro
-      setTimeout(() => {
-        document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
-      }, 250);
-
-    } else {
-      document.querySelectorAll(
-        '.reveal, .reveal-left, .reveal-right, .title-reveal, .stagger-item, .section-accent'
-      ).forEach(el => el.classList.add('visible'));
     }
 
     // Pointer glow
