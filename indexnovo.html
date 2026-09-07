@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#F8F5EF" />
+
+  <title>Clínica Skin Lounge | Medicina e Estética Integrativa</title>
+  <meta name="description" content="Clínica Skin Lounge em Cruzeiro - SP. Medicina e estética integrativa, dermatologia, tricologia, nutrição e cuidados personalizados." />
+
+  <meta property="og:title" content="Clínica Skin Lounge | Medicina e Estética Integrativa" />
+  <meta property="og:description" content="Rejuvenescimento natural, envelhecimento saudável e protocolos personalizados em Cruzeiro - SP." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="%23F0E5D2"/><text x="50" y="61" font-size="44" text-anchor="middle" fill="%23B78E48" font-family="serif">SL</text></svg>'>
+
+  <style>
+    :root{
+      --ivory:#F8F5EF;
+      --paper:#F3EEE5;
+      --champagne:#E9DDC8;
+      --gold:#B68B48;
+      --gold-soft:#C8AA72;
+      --rose:#B69C96;
+      --mauve:#8C6270;
+      --wine:#5E3D49;
+      --ink:#171515;
+      --muted:#706966;
+      --line:rgba(94,61,73,.14);
+      --glass:rgba(255,255,255,.54);
+      --shadow:0 24px 80px rgba(62,42,48,.12);
+      --serif:"Cormorant Garamond", Georgia, serif;
+      --sans:"Manrope", Inter, system-ui, sans-serif;
+      --max:1240px;
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(200,170,114,.13), transparent 23%),
+        radial-gradient(circle at 92% 18%, rgba(140,98,112,.08), transparent 22%),
+        var(--ivory);
+      color:var(--ink);
+      font-family:var(--sans);
+      overflow:hidden;
+    }
+    body.nav-open{overflow:hidden}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button{color:inherit}
+    ::selection{background:rgba(182,139,72,.22)}
+    :focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+    .wrap{width:min(var(--max),calc(100% - 46px));margin:auto}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    .ambient{
+      position:fixed;
+      width:460px;height:460px;border-radius:50%;
+      pointer-events:none;z-index:-2;
+      filter:blur(25px);
+      opacity:.34;
+      background:radial-gradient(circle,rgba(200,170,114,.22),transparent 66%);
+      transform:translate(-50%,-50%);
+      transition:opacity .3s;
+    }
+    .grain{
+      position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    }
+
+    /* O site usa seu próprio viewport de scroll.
+       Isso evita que previews/iframes tratem a página inteira como visível. */
+    .site-scroll{
+      height:100svh;
+      overflow-y:auto;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+      overscroll-behavior-y:contain;
+      scrollbar-gutter:stable;
+      position:relative;
+    }
+    body.nav-open .site-scroll{overflow:hidden}
+
+    /* boot */
+    .intro{
+      position:fixed;inset:0;z-index:9999;
+      background:#F6F1E8;
+      display:grid;place-items:center;
+      animation:introFallback 2.8s 1 forwards;
+    }
+    .intro-inner{text-align:center}
+    .intro-mark{
+      width:92px;height:92px;border-radius:50%;
+      margin:auto;display:grid;place-items:center;
+      border:1px solid rgba(182,139,72,.36);
+      background:rgba(255,255,255,.35);
+      box-shadow:0 30px 70px rgba(126,94,54,.11);
+      font:500 38px/1 var(--serif);color:var(--gold);
+      opacity:0;transform:scale(.92);
+      animation:introLogo .8s .15s forwards;
+    }
+    .intro-name{
+      margin-top:18px;font-family:var(--serif);
+      text-transform:uppercase;letter-spacing:.22em;font-size:13px;color:#67594f;
+      opacity:0;animation:introText .65s .55s forwards;
+    }
+    .intro-line{
+      width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      margin:18px auto 0;animation:introLine 1.2s .7s forwards;
+    }
+    @keyframes introLogo{to{opacity:1;transform:none}}
+    @keyframes introText{to{opacity:1}}
+    @keyframes introLine{to{width:180px}}
+    @keyframes introFallback{0%,78%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden}}
+    .intro.done{opacity:0;visibility:hidden;transition:.65s ease}
+
+    /* header */
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:80;
+      transition:.4s ease;
+    }
+    header.scrolled{
+      background:rgba(248,245,239,.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(94,61,73,.08);
+      box-shadow:0 12px 40px rgba(72,48,55,.055);
+    }
+    nav{
+      height:88px;display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;gap:24px
+    }
+    .brand{
+      display:flex;align-items:center;gap:13px;
+      justify-self:start
+    }
+    .brand-mark{
+      width:42px;height:42px;border-radius:50%;
+      display:grid;place-items:center;
+      border:1px solid rgba(182,139,72,.32);
+      color:var(--gold);font:500 20px var(--serif);
+      background:rgba(255,255,255,.3)
+    }
+    .brand-copy strong{
+      display:block;font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:.02em
+    }
+    .brand-copy span{
+      display:block;margin-top:1px;font-size:8.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)
+    }
+    .nav-links{display:flex;gap:28px;align-items:center}
+    .nav-links a{
+      position:relative;font-size:12px;letter-spacing:.04em;color:#4f4845;
+      transition:.25s
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;right:100%;bottom:-7px;height:1px;background:var(--gold);
+      transition:.3s ease
+    }
+    .nav-links a:hover{color:var(--ink)}
+    .nav-links a:hover::after{right:0}
+    .nav-actions{justify-self:end;display:flex;align-items:center;gap:10px}
+    .menu-toggle{
+      display:none;width:44px;height:44px;border:1px solid var(--line);
+      border-radius:50%;background:rgba(255,255,255,.42);cursor:pointer
+    }
+    .menu-toggle span{display:block;width:16px;height:1px;background:var(--ink);margin:4px auto;transition:.3s}
+
+    .button{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:48px;padding:0 20px;
+      border-radius:999px;border:1px solid rgba(94,61,73,.16);
+      background:transparent;cursor:pointer;
+      font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+      transition:.3s cubic-bezier(.2,.8,.2,1);
+      position:relative;overflow:hidden
+    }
+    .button::before{
+      content:"";position:absolute;inset:0;
+      transform:translateX(-105%);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+      transition:.55s
+    }
+    .button:hover::before{transform:translateX(105%)}
+    .button:hover{transform:translateY(-2px)}
+    .button.gold{
+      background:linear-gradient(135deg,#B98E4B,#C8AA72);
+      color:white;border-color:transparent;
+      box-shadow:0 14px 32px rgba(182,139,72,.18)
+    }
+    .button.ghost{background:rgba(255,255,255,.3)}
+    .button.wide{padding-left:26px;padding-right:26px}
+
+    /* hero */
+    .hero{
+      min-height:100vh;
+      display:grid;align-items:center;
+      padding:130px 0 70px;
+      position:relative;overflow:hidden
+    }
+    .hero::after{
+      content:"";position:absolute;right:-12%;top:15%;
+      width:45vw;height:45vw;border-radius:50%;
+      border:1px solid rgba(182,139,72,.10);
+      box-shadow:inset 0 0 90px rgba(200,170,114,.06);
+      pointer-events:none
+    }
+    .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:72px;align-items:center}
+    .eyebrow{
+      display:flex;align-items:center;gap:12px;
+      color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase
+    }
+    .eyebrow::before{content:"";width:35px;height:1px;background:currentColor}
+    h1,h2,h3{font-family:var(--serif);font-weight:500}
+    .hero h1{
+      font-size:clamp(4.4rem,8.3vw,8.8rem);
+      line-height:.82;letter-spacing:-.052em;
+      margin:24px 0 28px;max-width:760px
+    }
+    .hero h1 span{display:block;color:var(--wine)}
+    .hero-copy{
+      font-size:15px;line-height:1.85;color:var(--muted);max-width:610px
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .hero-micro{
+      display:flex;gap:30px;margin-top:42px;padding-top:20px;border-top:1px solid var(--line);
+      max-width:610px
+    }
+    .micro-item b{display:block;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--wine)}
+    .micro-item span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8b817b}
+
+    .hero-visual{
+      min-height:650px;position:relative;
+      display:grid;place-items:center;
+      perspective:1200px
+    }
+    .hero-frame{
+      position:relative;width:min(520px,100%);aspect-ratio:.77;
+      border-radius:48% 48% 42% 42% / 38% 38% 48% 48%;
+      background:
+        radial-gradient(circle at 46% 24%,rgba(255,255,255,.95),rgba(236,219,208,.70) 26%,transparent 27%),
+        radial-gradient(circle at 48% 40%,#E1CFC5 0 19%,#C6A6A2 33%,#947080 52%,#60414D 73%,#30272B 100%);
+      overflow:hidden;
+      box-shadow:0 35px 100px rgba(87,55,64,.17);
+      transform:rotateY(-3deg) rotateX(1deg);
+      transition:transform .3s ease-out
+    }
+    .hero-frame::before{
+      content:"";position:absolute;inset:0;
+      background:
+        linear-gradient(115deg,rgba(255,255,255,.42),transparent 34%),
+        radial-gradient(circle at 70% 75%,rgba(220,192,143,.22),transparent 23%);
+      mix-blend-mode:screen
+    }
+    .hero-face{
+      position:absolute;left:11%;right:11%;top:10%;bottom:7%;
+      width:78%;height:83%;opacity:.9
+    }
+    .hero-glass{
+      position:absolute;right:-20px;bottom:56px;
+      width:230px;padding:18px 18px 16px;
+      border-radius:21px;
+      background:rgba(255,255,255,.58);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(255,255,255,.65);
+      box-shadow:var(--shadow)
+    }
+    .hero-glass small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold)}
+    .hero-glass strong{display:block;font:500 23px/1.1 var(--serif);margin:7px 0 5px;color:var(--wine)}
+    .hero-glass span{font-size:10.5px;color:var(--muted);line-height:1.5;display:block}
+    .orbit{
+      position:absolute;width:108px;height:108px;border-radius:50%;
+      left:-5px;top:74px;border:1px solid rgba(182,139,72,.25)
+    }
+    .orbit::after{
+      content:"";position:absolute;width:8px;height:8px;border-radius:50%;
+      background:var(--gold);top:10px;left:22px;
+      box-shadow:0 0 20px rgba(182,139,72,.45)
+    }
+    .demo-note{
+      font-size:9px;letter-spacing:.06em;color:#928780;
+      display:inline-flex;align-items:center;gap:8px;margin-top:10px
+    }
+    .demo-note::before{content:"";width:18px;height:1px;background:#b8aba3}
+
+    /* generic sections */
+    section{padding:118px 0;position:relative}
+    .section-number{
+      font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:15px
+    }
+    .section-title{
+      margin:0;font-size:clamp(3rem,6vw,6.2rem);line-height:.9;letter-spacing:-.045em
+    }
+    .section-title em{font-style:normal;color:var(--wine)}
+    .section-sub{
+      max-width:620px;color:var(--muted);font-size:14px;line-height:1.85
+    }
+    .section-head{
+      display:flex;justify-content:space-between;gap:42px;align-items:flex-end;margin-bottom:48px
+    }
+
+    /* positioning */
+    .positioning{background:#F2EBE2}
+    .position-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:70px;align-items:center}
+    .position-art{
+      min-height:570px;border-radius:28px;position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 25% 18%,rgba(255,255,255,.72),transparent 25%),
+        linear-gradient(145deg,#DEC7BB,#B89997 42%,#7C5361 75%,#3F3036);
+      box-shadow:0 28px 75px rgba(98,67,74,.12)
+    }
+    .position-art::after{
+      content:"";position:absolute;inset:9%;border:1px solid rgba(255,255,255,.26);border-radius:22px
+    }
+    .position-art .line-art{position:absolute;inset:8%;width:84%;height:84%;opacity:.63}
+    .position-stamp{
+      position:absolute;bottom:26px;left:26px;
+      padding:13px 15px;border:1px solid rgba(255,255,255,.4);
+      background:rgba(255,255,255,.14);backdrop-filter:blur(12px);
+      border-radius:13px;color:white;
+      font-size:9px;text-transform:uppercase;letter-spacing:.14em
+    }
+    .position-copy h2{font-size:clamp(3.5rem,6vw,6.6rem);line-height:.88;margin:0 0 28px;letter-spacing:-.045em}
+    .position-copy p{color:#675d59;line-height:1.9;font-size:14px}
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:35px}
+    .pillar{
+      padding:18px 12px 17px;border-top:1px solid rgba(94,61,73,.22)
+    }
+    .pillar b{display:block;color:var(--wine);font:500 18px var(--serif);margin-bottom:6px}
+    .pillar span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#857976}
+
+    /* specialties */
+    .specialties-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .specialty{
+      min-height:430px;border-radius:24px;border:1px solid var(--line);
+      padding:24px;display:flex;flex-direction:column;justify-content:space-between;
+      background:rgba(255,255,255,.36);
+      position:relative;overflow:hidden;transition:.45s cubic-bezier(.2,.8,.2,1)
+    }
+    .specialty::before{
+      content:"";position:absolute;inset:45% -10% -20%;
+      background:radial-gradient(circle at 50% 80%,rgba(182,139,72,.18),transparent 57%);
+      opacity:.4;transition:.45s
+    }
+    .specialty:nth-child(2)::before{background:radial-gradient(circle at 50% 80%,rgba(140,98,112,.18),transparent 57%)}
+    .specialty:nth-child(3)::before{background:radial-gradient(circle at 50% 80%,rgba(182,156,150,.2),transparent 57%)}
+    .specialty:nth-child(4)::before{background:radial-gradient(circle at 50% 80%,rgba(94,61,73,.16),transparent 57%)}
+    .specialty:hover{transform:translateY(-8px);box-shadow:0 25px 60px rgba(83,55,62,.1);background:white}
+    .specialty:hover::before{opacity:1;transform:scale(1.12)}
+    .specialty-index{
+      display:flex;justify-content:space-between;align-items:center;
+      color:#9a8e87;font-size:10px;letter-spacing:.1em
+    }
+    .specialty-index i{
+      width:8px;height:8px;border-radius:50%;border:1px solid var(--gold);
+      transition:.3s
+    }
+    .specialty:hover .specialty-index i{background:var(--gold);box-shadow:0 0 18px rgba(182,139,72,.28)}
+    .specialty-content{position:relative;z-index:1}
+    .specialty h3{font-size:35px;line-height:1;margin:0 0 18px;color:var(--wine)}
+    .specialty ul{padding:0;margin:0;list-style:none;color:var(--muted);font-size:12px;line-height:1.9}
+    .specialty-link{
+      margin-top:20px;display:inline-flex;gap:10px;align-items:center;
+      font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);
+      opacity:.55;transform:translateY(5px);transition:.3s
+    }
+    .specialty:hover .specialty-link{opacity:1;transform:none}
+    .specialty-link::after{content:"→";font-size:14px}
+
+    /* treatments */
+    .technology{background:#181515;color:#F7F2E9;overflow:hidden}
+    .technology::before{
+      content:"";position:absolute;width:560px;height:560px;border-radius:50%;right:-180px;top:-120px;
+      background:radial-gradient(circle,rgba(182,139,72,.15),transparent 68%);
+      filter:blur(10px)
+    }
+    .technology .section-sub{color:#AFA29D}
+    .tech-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    .tech-main{
+      min-height:590px;border-radius:28px;overflow:hidden;position:relative;
+      border:1px solid rgba(255,255,255,.09);
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.07),transparent 35%),
+        radial-gradient(circle at 63% 38%,rgba(201,171,113,.28),transparent 17%),
+        radial-gradient(circle at 55% 43%,rgba(140,98,112,.24),transparent 37%),
+        #282022
+    }
+    .laser-grid{
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:38px 38px;
+      mask-image:linear-gradient(to bottom,transparent 4%,black 30%,transparent 95%)
+    }
+    .tech-orb{
+      position:absolute;width:280px;height:280px;border-radius:50%;
+      right:14%;top:20%;
+      border:1px solid rgba(200,170,114,.35);
+      box-shadow:
+        0 0 0 32px rgba(200,170,114,.035),
+        0 0 0 70px rgba(200,170,114,.018),
+        inset 0 0 70px rgba(200,170,114,.08)
+    }
+    .tech-orb::before,.tech-orb::after{
+      content:"";position:absolute;inset:50% auto auto 50%;
+      background:rgba(200,170,114,.5);transform:translate(-50%,-50%)
+    }
+    .tech-orb::before{width:1px;height:190%}
+    .tech-orb::after{height:1px;width:190%}
+    .tech-main-copy{position:absolute;left:30px;right:30px;bottom:30px;z-index:2}
+    .tech-main-copy small{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#C9AC75}
+    .tech-main-copy h3{font-size:52px;line-height:.9;margin:10px 0 14px}
+    .tech-main-copy p{max-width:560px;color:#B9ADA8;font-size:12px;line-height:1.7}
+    .tech-list{display:grid;gap:12px}
+    .tech-card{
+      flex:1;min-height:134px;padding:20px;border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.035);
+      transition:.3s
+    }
+    .tech-card:hover{background:rgba(255,255,255,.065);transform:translateX(-4px)}
+    .tech-card small{font-size:9px;color:#C9AC75;letter-spacing:.1em;text-transform:uppercase}
+    .tech-card h3{font-size:28px;margin:8px 0 6px}
+    .tech-card p{color:#9F9390;font-size:11px;line-height:1.65;margin:0}
+    .placeholder-badge{
+      display:inline-flex;margin-top:12px;padding:5px 8px;border:1px solid rgba(255,255,255,.1);
+      border-radius:999px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#968985
+    }
+
+    /* philosophy */
+    .philosophy{padding:0;background:#E8DDD3}
+    .philosophy-wrap{
+      min-height:95vh;display:grid;grid-template-columns:1fr 1fr;
+      position:relative;overflow:hidden
+    }
+    .philosophy-art{
+      position:relative;min-height:720px;
+      background:
+        radial-gradient(circle at 48% 30%,rgba(255,255,255,.72),transparent 24%),
+        radial-gradient(circle at 58% 44%,#DAC0B5 0 17%,#BB9598 35%,#865B6A 56%,#4B343D 78%,#251F22 100%)
+    }
+    .philosophy-art::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(90deg,transparent 64%,rgba(232,221,211,.95) 100%)
+    }
+    .philosophy-copy{
+      padding:100px 8vw 100px 6vw;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2
+    }
+    .philosophy-copy h2{
+      font-size:clamp(4rem,7.4vw,7.8rem);line-height:.82;letter-spacing:-.05em;margin:18px 0 30px
+    }
+    .philosophy-copy h2 span{color:var(--wine);display:block}
+    .philosophy-copy p{color:#675C58;line-height:1.9;max-width:570px;font-size:14px}
+
+    /* professionals */
+    .professional-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .professional{border-top:1px solid var(--line);padding-top:18px}
+    .professional-photo{
+      aspect-ratio:.82;border-radius:24px;position:relative;overflow:hidden;
+      background:
+        linear-gradient(155deg,rgba(255,255,255,.5),transparent 33%),
+        linear-gradient(145deg,#E5D9CF,#C9B4AE 54%,#88707A);
+      display:grid;place-items:center;color:rgba(94,61,73,.5)
+    }
+    .professional-photo .silhouette{
+      width:54%;height:64%;border-radius:48% 48% 18% 18%;
+      background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(94,61,73,.16));
+      position:relative
+    }
+    .professional-photo .silhouette::before{
+      content:"";position:absolute;width:46%;aspect-ratio:1;border-radius:50%;
+      left:27%;top:-27%;background:rgba(255,255,255,.3)
+    }
+    .professional-photo small{
+      position:absolute;bottom:14px;left:14px;
+      padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.56);
+      backdrop-filter:blur(9px);font-size:8px;text-transform:uppercase;letter-spacing:.1em
+    }
+    .professional h3{font-size:29px;margin:17px 0 4px}
+    .professional p{font-size:11px;color:var(--muted);line-height:1.7;margin:0}
+    .professional .meta{font-size:9px;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
+
+    /* results */
+    .results{background:#F0E9E0}
+    .results-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+    .result-large,.result-small{
+      border-radius:28px;position:relative;overflow:hidden;border:1px solid rgba(94,61,73,.1)
+    }
+    .result-large{
+      min-height:560px;background:linear-gradient(135deg,#CFB8AE,#9D7A83 50%,#5F414B)
+    }
+    .result-small{min-height:272px;background:linear-gradient(135deg,#E2D5CA,#C0A5A0,#8D6773)}
+    .result-stack{display:grid;gap:16px}
+    .result-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+    .result-split div:first-child{background:rgba(255,255,255,.08);border-right:1px solid rgba(255,255,255,.35)}
+    .result-split div:last-child{background:rgba(94,61,73,.12)}
+    .result-label{
+      position:absolute;left:18px;bottom:17px;
+      background:rgba(255,255,255,.68);backdrop-filter:blur(12px);
+      border-radius:999px;padding:7px 11px;font-size:8px;letter-spacing:.1em;text-transform:uppercase
+    }
+    .result-note{
+      position:absolute;right:18px;top:17px;color:white;font-size:8px;text-transform:uppercase;letter-spacing:.1em
+    }
+
+    /* reviews */
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .review-card{
+      padding:26px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.38)
+    }
+    .stars{letter-spacing:.14em;color:var(--gold-soft);font-size:12px}
+    .review-card blockquote{font:500 26px/1.15 var(--serif);margin:24px 0 28px;color:var(--wine)}
+    .review-card footer{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#8e827b}
+
+    /* scheduling */
+    .schedule{background:#5B3B47;color:#F8F2E9}
+    .schedule .section-sub{color:#C9BAB6}
+    .schedule-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px}
+    .schedule-menu{border-top:1px solid rgba(255,255,255,.12)}
+    .schedule-group{
+      padding:20px 0;border-bottom:1px solid rgba(255,255,255,.1)
+    }
+    .schedule-group-title{
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#D6B879;margin-bottom:12px
+    }
+    .schedule-item{
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+      padding:10px 0
+    }
+    .schedule-item span{font:500 26px var(--serif)}
+    .schedule-item button{
+      flex:0 0 auto;border:0;background:none;color:#F0DFD7;cursor:pointer;
+      font-size:9px;letter-spacing:.13em;text-transform:uppercase
+    }
+    .schedule-item button::after{content:" ↗";color:#D6B879}
+    .schedule-item button:hover{color:#D6B879}
+
+    /* =========================================================
+       AGENDAMENTO DENTRO DO SITE — PROTÓTIPO INTERATIVO
+       ========================================================= */
+    .booking-section{
+      background:
+        radial-gradient(circle at 8% 8%,rgba(214,184,121,.10),transparent 24%),
+        radial-gradient(circle at 92% 72%,rgba(140,98,112,.16),transparent 28%),
+        #563743;
+      color:#F9F3EC;
+      overflow:hidden;
+    }
+    .booking-section .section-sub{color:#CDBEBA}
+    .booking-shell{
+      display:grid;
+      grid-template-columns:.68fr 1.32fr;
+      gap:42px;
+      align-items:start;
+    }
+    .booking-intro{
+      position:sticky;
+      top:118px;
+    }
+    .booking-intro h2{
+      font-size:clamp(4rem,7vw,7.2rem);
+      line-height:.84;
+      letter-spacing:-.052em;
+      margin:14px 0 24px;
+    }
+    .booking-intro h2 em{
+      color:#D6B879;
+      font-style:normal;
+    }
+    .booking-intro p{
+      max-width:500px;
+      color:#CDBEBA;
+      line-height:1.85;
+      font-size:13px;
+    }
+    .booking-demo-note{
+      margin-top:25px;
+      padding:15px 16px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+      color:#BFB0AC;
+      font-size:10px;
+      line-height:1.65;
+    }
+    .booking-demo-note b{
+      display:block;
+      color:#D9BD84;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:8px;
+      margin-bottom:5px;
+    }
+
+    .booking-panel{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      padding:28px;
+      box-shadow:0 28px 80px rgba(30,18,23,.18);
+    }
+    .booking-progress{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:7px;
+      margin-bottom:28px;
+    }
+    .booking-progress span{
+      height:3px;
+      border-radius:999px;
+      background:rgba(255,255,255,.11);
+      transition:.35s ease;
+    }
+    .booking-progress span.active{
+      background:linear-gradient(90deg,#C79B53,#E4CE9E);
+      box-shadow:0 0 18px rgba(214,184,121,.18);
+    }
+    .booking-step{display:none}
+    .booking-step.active{display:block;animation:bookingStepIn .45s ease both}
+    @keyframes bookingStepIn{
+      from{opacity:0;transform:translateY(13px)}
+      to{opacity:1;transform:none}
+    }
+    .booking-kicker{
+      font-size:8px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      color:#D6B879;
+      margin-bottom:7px;
+    }
+    .booking-step h3{
+      font-size:36px;
+      line-height:1;
+      margin:0 0 8px;
+    }
+    .booking-help{
+      color:#BDAEAA;
+      font-size:11px;
+      line-height:1.65;
+      margin:0 0 22px;
+    }
+
+    .procedure-options{display:grid;gap:9px}
+    .procedure-option{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      text-align:left;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F7F1EA;
+      padding:16px 17px;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.25s ease;
+    }
+    .procedure-option:hover,
+    .procedure-option.selected{
+      border-color:rgba(214,184,121,.48);
+      background:rgba(214,184,121,.08);
+      transform:translateX(4px);
+    }
+    .procedure-option small{
+      display:block;
+      color:#D6B879;
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:4px;
+    }
+    .procedure-option strong{
+      display:block;
+      font:500 21px/1.1 var(--serif);
+    }
+    .procedure-option i{
+      width:25px;height:25px;border-radius:50%;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      font-style:normal;color:#D6B879;
+      transition:.25s;
+    }
+    .procedure-option.selected i{
+      background:#D6B879;color:#523540;border-color:#D6B879
+    }
+
+    .date-options{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .date-option{
+      min-height:84px;
+      border-radius:15px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F8F2EA;
+      cursor:pointer;
+      padding:10px 7px;
+      transition:.25s;
+    }
+    .date-option:hover,
+    .date-option.selected{
+      border-color:rgba(214,184,121,.46);
+      background:rgba(214,184,121,.09);
+      transform:translateY(-3px)
+    }
+    .date-option small{
+      display:block;color:#B8AAA6;font-size:8px;text-transform:uppercase;letter-spacing:.08em
+    }
+    .date-option b{
+      display:block;font:500 29px/1 var(--serif);margin:4px 0;color:#F8F2EA
+    }
+    .date-option span{font-size:8px;color:#D6B879;text-transform:uppercase;letter-spacing:.09em}
+
+    .time-options{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    .time-option{
+      min-height:50px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);
+      color:#F8F2EA;
+      cursor:pointer;
+      transition:.25s;
+      font-size:11px;
+    }
+    .time-option:hover,
+    .time-option.selected{
+      background:#D6B879;
+      color:#533641;
+      border-color:#D6B879;
+      transform:translateY(-2px)
+    }
+
+    .booking-summary{
+      margin:18px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .summary-line{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      padding:11px 0;
+      color:#C4B6B1;
+      font-size:10px;
+    }
+    .summary-line + .summary-line{border-top:1px solid rgba(255,255,255,.065)}
+    .summary-line b{color:#F7EFE8;font-weight:500;text-align:right}
+
+    .booking-form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:18px;
+    }
+    .booking-field{display:grid;gap:6px}
+    .booking-field.full{grid-column:1/-1}
+    .booking-field label{
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      color:#D5C5C0;
+    }
+    .booking-field input{
+      min-height:48px;
+      width:100%;
+      border-radius:13px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      color:#F8F2EA;
+      padding:0 13px;
+      outline:none;
+    }
+    .booking-field input:focus{border-color:rgba(214,184,121,.55)}
+    .booking-field input::placeholder{color:#8F7E7B}
+
+    .booking-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+    .booking-back{
+      border:0;background:none;color:#BFAEAA;cursor:pointer;
+      font-size:9px;text-transform:uppercase;letter-spacing:.12em;
+      padding:10px 0;
+    }
+    .booking-back:hover{color:#F7EFE8}
+    .booking-next[disabled]{
+      opacity:.35;cursor:not-allowed;transform:none!important
+    }
+    .booking-success{
+      text-align:center;
+      padding:34px 10px 18px;
+    }
+    .booking-success-mark{
+      width:64px;height:64px;border-radius:50%;
+      display:grid;place-items:center;
+      margin:0 auto 20px;
+      color:#563743;
+      background:#D6B879;
+      font-size:24px;
+      box-shadow:0 18px 45px rgba(214,184,121,.18)
+    }
+    .booking-success h3{font-size:44px;margin:0 0 12px}
+    .booking-success p{
+      max-width:500px;margin:0 auto;color:#BFAFAD;font-size:11px;line-height:1.7
+    }
+    .support-box{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.09);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+    .support-box div strong{
+      display:block;
+      font:500 18px var(--serif);
+      margin-bottom:3px;
+    }
+    .support-box div span{
+      display:block;color:#AC9D99;font-size:9px;line-height:1.5
+    }
+
+    @media(max-width:1000px){
+      .booking-shell{grid-template-columns:1fr}
+      .booking-intro{position:static}
+    }
+    @media(max-width:620px){
+      .booking-panel{padding:19px}
+      .date-options{grid-template-columns:repeat(2,1fr)}
+      .time-options{grid-template-columns:repeat(3,1fr)}
+      .booking-form{grid-template-columns:1fr}
+      .booking-field.full{grid-column:auto}
+      .support-box{align-items:flex-start;flex-direction:column}
+    }
+
+    /* final CTA */
+    .final-cta{
+      padding:90px 0;background:
+        radial-gradient(circle at 75% 30%,rgba(182,139,72,.15),transparent 22%),
+        #171515;color:#F8F2EA;text-align:center
+    }
+    .final-cta h2{font-size:clamp(4rem,8vw,8rem);line-height:.84;margin:15px auto 30px;max-width:1000px}
+    .final-cta p{color:#B6AAA5;max-width:600px;margin:0 auto 30px;line-height:1.8}
+
+    /* location */
+    .location-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px}
+    .location-info{
+      padding:36px;border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.4)
+    }
+    .location-info h3{font-size:44px;margin:10px 0 24px}
+    .info-line{padding:17px 0;border-top:1px solid var(--line)}
+    .info-line small{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.13em;color:var(--gold);margin-bottom:6px}
+    .info-line span{font-size:13px;color:#655d59}
+    .map-placeholder{
+      min-height:500px;border-radius:28px;position:relative;overflow:hidden;
+      background:
+        linear-gradient(90deg,rgba(94,61,73,.055) 1px,transparent 1px),
+        linear-gradient(rgba(94,61,73,.055) 1px,transparent 1px),
+        #E9E0D6;
+      background-size:42px 42px
+    }
+    .map-road{
+      position:absolute;background:#F8F5EF;border:1px solid rgba(94,61,73,.08);
+      width:140%;height:68px;left:-20%;top:44%;transform:rotate(-17deg);border-radius:999px
+    }
+    .map-road.r2{transform:rotate(37deg);top:29%;height:45px}
+    .map-pin{
+      position:absolute;left:54%;top:45%;width:54px;height:54px;border-radius:50% 50% 50% 8px;
+      background:var(--wine);transform:rotate(-45deg);box-shadow:0 20px 50px rgba(94,61,73,.25)
+    }
+    .map-pin::after{content:"SL";position:absolute;inset:0;display:grid;place-items:center;color:white;transform:rotate(45deg);font:500 15px var(--serif)}
+
+    /* footer */
+    footer.site-footer{
+      padding:72px 0 34px;background:#EFE7DD;border-top:1px solid var(--line)
+    }
+    .footer-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:40px}
+    .footer-brand h3{font-size:42px;margin:14px 0 8px}
+    .footer-brand p{max-width:430px;color:var(--muted);font-size:12px;line-height:1.75}
+    .footer-col b{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:14px}
+    .footer-col a,.footer-col span{display:block;font-size:12px;color:#5E5652;margin:10px 0}
+    .footer-bottom{
+      margin-top:50px;padding-top:18px;border-top:1px solid var(--line);
+      display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+      font-size:9px;color:#8D817B;text-transform:uppercase;letter-spacing:.08em
+    }
+
+    /* mobile nav */
+    .mobile-menu{
+      position:fixed;inset:0;z-index:75;
+      background:rgba(248,245,239,.96);backdrop-filter:blur(20px);
+      display:grid;place-items:center;
+      opacity:0;visibility:hidden;transition:.38s ease
+    }
+    .mobile-menu.open{opacity:1;visibility:visible}
+    .mobile-links{display:grid;text-align:center;gap:18px}
+    .mobile-links a{font:500 40px var(--serif);color:var(--wine)}
+    .mobile-links .button{font-family:var(--sans);font-size:10px;margin-top:15px}
+
+    /* reveal animations; visible by default, JS opts-in */
+    .reveal{opacity:1;transform:none;filter:none}
+    html.js .reveal{
+      opacity:0;transform:translateY(26px);filter:blur(5px);
+      transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1),filter .85s ease
+    }
+    html.js .reveal.visible{opacity:1;transform:none;filter:none}
+    html.js .reveal.scale{transform:scale(.965)}
+    html.js .reveal.scale.visible{transform:scale(1)}
+    .draw-line{
+      width:100%;height:1px;background:linear-gradient(90deg,var(--gold),rgba(182,139,72,.15));
+      transform-origin:left;transform:scaleX(1)
+    }
+    html.js .draw-line{transform:scaleX(0);transition:transform 1.1s ease}
+    html.js .draw-line.visible{transform:scaleX(1)}
+
+    @media(max-width:1050px){
+      .hero-grid,.position-grid,.tech-grid,.schedule-grid,.location-grid{grid-template-columns:1fr}
+      .hero{padding-top:120px}
+      .hero-visual{min-height:580px}
+      .specialties-grid{grid-template-columns:repeat(2,1fr)}
+      .philosophy-wrap{grid-template-columns:1fr}
+      .philosophy-art{min-height:520px}
+      .philosophy-art::after{background:linear-gradient(0deg,#E8DDD3 0%,transparent 34%)}
+      .philosophy-copy{padding:70px 34px 90px}
+      .professional-grid,.review-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:820px){
+      nav{grid-template-columns:1fr auto;height:76px}
+      .nav-links{display:none}
+      .brand-copy span{display:none}
+      .nav-actions .button{
+        display:inline-flex;min-height:38px;padding:0 12px;font-size:8px
+      }
+      .menu-toggle{display:block;width:40px;height:40px}
+      .hero-grid{gap:36px}
+      .hero h1{font-size:clamp(4rem,18vw,7rem)}
+      .hero-micro{gap:15px;display:grid;grid-template-columns:repeat(3,1fr)}
+      .hero-frame{width:min(460px,87vw)}
+      .hero-glass{right:4px}
+      section{padding:88px 0}
+      .section-head{flex-direction:column;align-items:flex-start}
+      .results-grid{grid-template-columns:1fr}
+      .result-large{min-height:430px}
+      .footer-grid{grid-template-columns:1fr}
+    }
+
+    @media(max-width:610px){
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .hero{padding-top:105px;padding-bottom:52px}
+      .hero-actions{display:grid}
+      .hero-actions .button{width:100%}
+      .hero-micro{grid-template-columns:1fr;gap:8px}
+      .micro-item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+      .micro-item b{font-size:18px}
+      .hero-visual{min-height:480px}
+      .hero-frame{border-radius:44% 44% 36% 36% / 34% 34% 46% 46%}
+      .hero-glass{width:205px;bottom:20px}
+      .orbit{top:20px;left:0}
+      .section-title{font-size:clamp(3rem,16vw,5rem)}
+      .specialties-grid,.professional-grid,.review-grid{grid-template-columns:1fr}
+      .specialty{min-height:360px}
+      .pillars{grid-template-columns:1fr}
+      .position-art{min-height:430px}
+      .tech-main{min-height:500px}
+      .tech-main-copy h3{font-size:42px}
+      .philosophy-copy{padding-left:20px;padding-right:20px}
+      .schedule-item{align-items:flex-start}
+      .schedule-item span{font-size:22px}
+      .location-info{padding:26px}
+      .map-placeholder{min-height:360px}
+      .final-cta h2{font-size:clamp(4rem,18vw,6.5rem)}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation:none!important;transition:none!important}
+      .intro{display:none}
+      html.js .reveal{opacity:1!important;transform:none!important;filter:none!important}
+    }
+
+    .prototype-toast{
+      position:fixed;left:50%;bottom:24px;z-index:500;
+      width:min(430px,calc(100% - 28px));
+      padding:14px 16px;
+      border-radius:16px;
+      display:flex;align-items:flex-start;gap:12px;
+      color:#F8F2E9;
+      background:rgba(43,31,35,.92);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 22px 70px rgba(41,27,32,.28);
+      opacity:0;visibility:hidden;
+      transform:translate(-50%,14px);
+      transition:.32s ease;
+    }
+    .prototype-toast.show{
+      opacity:1;visibility:visible;transform:translate(-50%,0)
+    }
+    .prototype-toast i{
+      width:8px;height:8px;border-radius:50%;
+      background:#D2B477;box-shadow:0 0 16px rgba(210,180,119,.42);
+      margin-top:5px;flex:0 0 auto
+    }
+    .prototype-toast strong{
+      display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#D9BD84;margin-bottom:4px
+    }
+    .prototype-toast span{display:block;color:#C9BCB7;font-size:11px;line-height:1.55}
+
+    /* =========================================================
+       V2 — SCROLL REVEALS MAIS VISÍVEIS E CINEMATOGRÁFICOS
+       ========================================================= */
+
+    html.js .reveal{
+      opacity:0;
+      transform:translate3d(0,52px,0);
+      filter:blur(12px);
+      transition:
+        opacity .9s cubic-bezier(.2,.7,.2,1),
+        transform 1.05s cubic-bezier(.16,1,.3,1),
+        filter .95s ease;
+      will-change:opacity,transform,filter;
+    }
+
+    html.js .reveal.visible{
+      opacity:1;
+      transform:translate3d(0,0,0);
+      filter:blur(0);
+    }
+
+    html.js .reveal.scale{
+      transform:translate3d(0,34px,0) scale(.92);
+      filter:blur(10px);
+    }
+
+    html.js .reveal.scale.visible{
+      transform:translate3d(0,0,0) scale(1);
+      filter:blur(0);
+    }
+
+    /* entradas laterais */
+    html.js .reveal-left{
+      opacity:0;
+      transform:translate3d(-58px,0,0);
+      filter:blur(9px);
+      transition:
+        opacity .9s ease,
+        transform 1s cubic-bezier(.16,1,.3,1),
+        filter .85s ease;
+    }
+
+    html.js .reveal-left.visible{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+
+    html.js .reveal-right{
+      opacity:0;
+      transform:translate3d(58px,0,0);
+      filter:blur(9px);
+      transition:
+        opacity .9s ease,
+        transform 1s cubic-bezier(.16,1,.3,1),
+        filter .85s ease;
+    }
+
+    html.js .reveal-right.visible{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+
+    /* títulos com efeito editorial */
+    html.js .title-reveal{
+      opacity:0;
+      transform:translateY(72px);
+      clip-path:inset(0 0 72% 0);
+      transition:
+        opacity .6s ease,
+        transform 1.05s cubic-bezier(.16,1,.3,1),
+        clip-path 1.05s cubic-bezier(.16,1,.3,1);
+    }
+
+    html.js .title-reveal.visible{
+      opacity:1;
+      transform:none;
+      clip-path:inset(0 0 0 0);
+    }
+
+    /* máscara de imagem / bloco */
+    .image-reveal{
+      position:relative;
+      overflow:hidden;
+    }
+
+    html.js .image-reveal::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      z-index:5;
+      background:linear-gradient(135deg,#F3EEE5 0%,#E9DDC8 58%,#D6C0B7 100%);
+      transform:translateX(0);
+      transition:transform 1.2s cubic-bezier(.77,0,.18,1);
+      pointer-events:none;
+    }
+
+    html.js .technology .image-reveal::after{
+      background:linear-gradient(135deg,#231D1F,#4A333C);
+    }
+
+    html.js .image-reveal.visible::after{
+      transform:translateX(102%);
+    }
+
+    /* cards surgem em cascata */
+    html.js .stagger-item{
+      opacity:0;
+      transform:translateY(46px) scale(.97);
+      filter:blur(8px);
+      transition:
+        opacity .75s ease,
+        transform .9s cubic-bezier(.16,1,.3,1),
+        filter .8s ease;
+    }
+
+    html.js .stagger-item.visible{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+
+    /* pequena linha que cresce nos cabeçalhos */
+    .section-accent{
+      width:100%;
+      height:1px;
+      margin-top:20px;
+      background:linear-gradient(90deg,var(--gold) 0%,rgba(182,139,72,.18) 48%,transparent 100%);
+      transform-origin:left;
+    }
+
+    html.js .section-accent{
+      transform:scaleX(0);
+      transition:transform 1.15s cubic-bezier(.16,1,.3,1);
+    }
+
+    html.js .section-accent.visible{
+      transform:scaleX(1);
+    }
+
+    /* efeito de profundidade quando seção começa a aparecer */
+    .scroll-stage{
+      transition:transform .8s cubic-bezier(.16,1,.3,1);
+    }
+
+    /* texto menor entra um pouco depois */
+    html.js .delay-1{transition-delay:.08s!important}
+    html.js .delay-2{transition-delay:.16s!important}
+    html.js .delay-3{transition-delay:.24s!important}
+    html.js .delay-4{transition-delay:.32s!important}
+    html.js .delay-5{transition-delay:.40s!important}
+
+    /* no mobile, mantém impacto mas reduz deslocamento */
+    @media(max-width:610px){
+      html.js .reveal{transform:translate3d(0,34px,0);filter:blur(8px)}
+      html.js .reveal-left,
+      html.js .reveal-right{transform:translate3d(0,32px,0)}
+      html.js .title-reveal{transform:translateY(46px)}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html.js .reveal,
+      html.js .reveal-left,
+      html.js .reveal-right,
+      html.js .title-reveal,
+      html.js .stagger-item{
+        opacity:1!important;
+        transform:none!important;
+        filter:none!important;
+        clip-path:none!important;
+      }
+      html.js .image-reveal::after{display:none!important}
+      html.js .section-accent{transform:none!important}
+    }
+
+    .scroll-progress{
+      position:fixed;top:0;left:0;z-index:999;
+      width:0;height:2px;
+      background:linear-gradient(90deg,var(--wine),var(--gold),#E8D3A7);
+      box-shadow:0 0 16px rgba(182,139,72,.25);
+      pointer-events:none;
+    }
+
+    /* =========================================================
+       V3 — REVEAL IDÊNTICO AO PORTFÓLIO DO GUEDES
+       Simples, robusto e fácil de perceber.
+       ========================================================= */
+
+    /* Neutraliza os experimentos anteriores de reveal/mask. */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .title-reveal,
+    .stagger-item{
+      opacity:1;
+      transform:none;
+      filter:none;
+      clip-path:none;
+    }
+
+    .image-reveal::after{display:none!important}
+    .section-accent{display:none!important}
+
+    /* Estado inicial só é ativado quando JS + IntersectionObserver existem. */
+    .motion-ready .reveal{
+      opacity:0!important;
+      transform:translateY(42px)!important;
+      filter:none!important;
+      clip-path:none!important;
+      transition:
+        opacity 1.05s ease,
+        transform 1.05s cubic-bezier(.16,1,.3,1)!important;
+      will-change:opacity,transform;
+    }
+
+    .motion-ready .reveal.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    /* Imagens entram com um zoom mínimo, ainda usando o mesmo visible. */
+    .motion-ready .reveal.scale{
+      opacity:0!important;
+      transform:translateY(34px) scale(.965)!important;
+    }
+
+    .motion-ready .reveal.scale.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    /* Cards recebem stagger perceptível sem mudar o mecanismo. */
+    .motion-ready .stagger-item{
+      opacity:0!important;
+      transform:translateY(46px)!important;
+    }
+
+    .motion-ready .stagger-item.visible{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    @media(max-width:610px){
+      .motion-ready .reveal{
+        transform:translateY(30px)!important;
+      }
+      .motion-ready .reveal.scale{
+        transform:translateY(24px) scale(.975)!important;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .motion-ready .reveal,
+      .motion-ready .stagger-item{
+        opacity:1!important;
+        transform:none!important;
+        transition:none!important;
+      }
+    }
+
+  </style>
+
+  <div class="prototype-toast" id="prototypeToast" role="status" aria-live="polite">
+    <i></i>
+    <div>
+      <strong>Protótipo comercial</strong>
+      <span>Este botão será conectado ao link oficial da clínica na versão final.</span>
+    </div>
+  </div>
+
+</head>
+
+<body>
+  <!-- Scroll reveal: mesmo mecanismo do portfolio marceloguedesss.github.io -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="grain"></div>
+  <div class="ambient" id="ambient"></div>
+
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-inner">
+      <div class="intro-mark">SL</div>
+      <div class="intro-name">Clínica Skin Lounge</div>
+      <div class="intro-line"></div>
+    </div>
+  </div>
+
+  <header id="header">
+    <div class="wrap">
+      <nav aria-label="Navegação principal">
+        <a class="brand" href="#inicio" aria-label="Clínica Skin Lounge — início">
+          <span class="brand-mark">SL</span>
+          <span class="brand-copy">
+            <strong>Skin Lounge</strong>
+            <span>Medicina & Estética Integrativa</span>
+          </span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#inicio">Início</a>
+          <a href="#clinica">A Clínica</a>
+          <a href="#especialidades">Especialidades</a>
+          <a href="#profissionais">Profissionais</a>
+          <a href="#contato">Contato</a>
+        </div>
+
+        <div class="nav-actions">
+          <button class="button gold booking-trigger" type="button">Agendar online</button>
+          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-links">
+      <a href="#inicio">Início</a>
+      <a href="#clinica">A Clínica</a>
+      <a href="#especialidades">Especialidades</a>
+      <a href="#profissionais">Profissionais</a>
+      <a href="#contato">Contato</a>
+      <button class="button gold booking-trigger" type="button">Agendar online</button>
+    </div>
+  </div>
+
+  <div class="site-scroll" id="siteScroll">
+  <main>
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow reveal">Medicina • Estética • Integrativa</div>
+          <h1 class="reveal title-reveal">
+            Rejuvenescimento
+            <span>natural.</span>
+          </h1>
+          <p class="hero-copy reveal">
+            Precisão em cada detalhe. Protocolos personalizados e integrados para um cuidado
+            que respeita a individualidade de cada paciente.
+          </p>
+          <div class="hero-actions reveal">
+            <a href="#clinica" class="button ghost wide">Conheça a clínica</a>
+            <button class="button gold wide booking-trigger" type="button">Agendar online</button>
+          </div>
+
+          <div class="hero-micro reveal">
+            <div class="micro-item"><b>01</b><span>Envelhecimento saudável</span></div>
+            <div class="micro-item"><b>02</b><span>Resultados naturais</span></div>
+            <div class="micro-item"><b>03</b><span>Cuidado personalizado</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal scale" id="heroVisual">
+          <div class="orbit"></div>
+
+          <div class="hero-frame" id="heroFrame" aria-label="Visual artístico demonstrativo para ser substituído por fotografia oficial da clínica">
+            <svg class="hero-face" viewBox="0 0 400 520" aria-hidden="true">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#F8EDE5" stop-opacity=".35"/>
+                  <stop offset="1" stop-color="#E9C9BE" stop-opacity=".05"/>
+                </linearGradient>
+              </defs>
+              <path d="M225 45 C158 48 117 92 112 162 C108 223 132 278 164 314 C187 340 196 378 185 415 C172 461 205 491 242 472 C281 452 303 406 288 361 C280 336 287 315 306 289 C337 246 348 177 326 119 C307 70 272 42 225 45Z"
+                    fill="url(#g1)" stroke="rgba(255,255,255,.48)" stroke-width="1"/>
+              <path d="M170 180 C199 163 236 165 260 183" fill="none" stroke="rgba(255,255,255,.52)" stroke-width="1.2"/>
+              <path d="M196 229 C216 237 237 237 255 229" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="1"/>
+              <path d="M210 295 C229 304 247 302 262 292" fill="none" stroke="rgba(255,255,255,.36)" stroke-width="1"/>
+              <circle cx="203" cy="192" r="3.4" fill="rgba(255,255,255,.5)"/>
+              <circle cx="253" cy="191" r="3.4" fill="rgba(255,255,255,.5)"/>
+            </svg>
+          </div>
+
+          <div class="hero-glass">
+            <small>Skin Lounge Concept</small>
+            <strong>Cuidado com precisão.</strong>
+            <span>Estética, saúde e tecnologia em uma experiência integrada.</span>
+            <div class="demo-note">Visual demonstrativo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="positioning" id="clinica">
+      <div class="wrap position-grid">
+        <div class="position-art reveal scale image-reveal">
+          <svg class="line-art" viewBox="0 0 500 600" aria-hidden="true">
+            <path d="M280 40 C180 48 115 120 120 226 C124 312 169 360 194 404 C219 448 205 500 183 548"
+                  fill="none" stroke="rgba(255,255,255,.52)" stroke-width="1.1"/>
+            <path d="M210 145 C256 118 302 125 334 154" fill="none" stroke="rgba(255,255,255,.36)" />
+            <path d="M236 214 C264 227 292 226 316 212" fill="none" stroke="rgba(255,255,255,.34)" />
+            <circle cx="256" cy="158" r="4" fill="rgba(255,255,255,.54)" />
+            <circle cx="311" cy="160" r="4" fill="rgba(255,255,255,.54)" />
+            <path d="M336 170 C365 226 358 286 321 333" fill="none" stroke="rgba(255,255,255,.24)" />
+          </svg>
+          <div class="position-stamp">Imagem conceitual • substituir por material oficial</div>
+        </div>
+
+        <div class="position-copy reveal">
+          <div class="section-number reveal">01 / A Clínica</div>
+          <h2 class="reveal title-reveal">Um novo olhar sobre o <em>cuidado.</em></h2>
+          <p class="reveal">
+            A Clínica Skin Lounge une estética, saúde e cuidado integrado para oferecer uma experiência
+            personalizada em cada etapa. Um atendimento pensado para respeitar a individualidade,
+            valorizar a naturalidade e acompanhar cada paciente de forma precisa.
+          </p>
+
+          <div class="pillars reveal">
+            <div class="pillar"><b>Envelhecimento</b><span>saudável</span></div>
+            <div class="pillar"><b>Rejuvenescimento</b><span>natural</span></div>
+            <div class="pillar"><b>Protocolos</b><span>personalizados</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="especialidades">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">02 / Especialidades</div>
+            <h2 class="section-title reveal title-reveal">Áreas de <em>cuidado.</em></h2>
+          </div>
+          <p class="section-sub reveal">
+            Uma abordagem que conecta diferentes especialidades para construir uma jornada mais completa,
+            coerente e individualizada.
+          </p>
+        </div>
+
+        <div class="specialties-grid">
+          <article class="specialty reveal stagger-item">
+            <div class="specialty-index"><span>01</span><i></i></div>
+            <div class="specialty-content">
+              <h3>Dermatologia</h3>
+              <ul>
+                <li>Dermatologia Clínica</li>
+                <li>Dermatologia Estética</li>
+              </ul>
+              <a href="#agendamento" class="specialty-link">Conhecer</a>
+            </div>
+          </article>
+
+          <article class="specialty reveal stagger-item">
+            <div class="specialty-index"><span>02</span><i></i></div>
+            <div class="specialty-content">
+              <h3>Tricologia</h3>
+              <ul>
+                <li>Consulta capilar</li>
+                <li>Avaliação individualizada</li>
+              </ul>
+              <a href="#agendamento" class="specialty-link">Conhecer</a>
+            </div>
+          </article>
+
+          <article class="specialty reveal stagger-item">
+            <div class="specialty-index"><span>03</span><i></i></div>
+            <div class="specialty-content">
+              <h3>Nutrição</h3>
+              <ul>
+                <li>Consulta com Nutricionista</li>
+                <li>Cuidado integrado</li>
+              </ul>
+              <a href="#agendamento" class="specialty-link">Conhecer</a>
+            </div>
+          </article>
+
+          <article class="specialty reveal stagger-item">
+            <div class="specialty-index"><span>04</span><i></i></div>
+            <div class="specialty-content">
+              <h3>Estética</h3>
+              <ul>
+                <li>Consulta com Esteticista</li>
+                <li>Limpeza de Pele</li>
+              </ul>
+              <a href="#agendamento" class="specialty-link">Conhecer</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="technology" id="tecnologia">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">03 / Tecnologia & Tratamentos</div>
+            <h2 class="section-title reveal title-reveal">Precisão através da <em style="color:#D2B982">tecnologia.</em></h2>
+          </div>
+          <p class="section-sub reveal">
+            Recursos e protocolos apresentados nos materiais públicos da Skin Lounge, organizados em uma
+            experiência visual que poderá receber informações técnicas oficiais na versão final.
+          </p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-main reveal scale image-reveal">
+            <div class="laser-grid"></div>
+            <div class="tech-orb"></div>
+            <div class="tech-main-copy">
+              <small>Tecnologia em destaque</small>
+              <h3>Laser CO₂</h3>
+              <p>Referência visual identificada no material público da clínica. Detalhes técnicos e indicações deverão ser inseridos após validação oficial.</p>
+              <span class="placeholder-badge">Conteúdo técnico pendente de validação</span>
+            </div>
+          </div>
+
+          <div class="tech-list">
+            <article class="tech-card reveal stagger-item">
+              <small>Tratamento</small>
+              <h3>Microagulhamento</h3>
+              <p>Espaço preparado para uma descrição oficial do protocolo utilizado pela clínica.</p>
+            </article>
+
+            <article class="tech-card reveal stagger-item">
+              <small>Protocolo</small>
+              <h3>Rejuvenescimento facial</h3>
+              <p>Apresentação institucional sem promessas de resultado ou informações clínicas não confirmadas.</p>
+            </article>
+
+            <article class="tech-card reveal stagger-item">
+              <small>Integração</small>
+              <h3>Tecnologias estéticas</h3>
+              <p>Área preparada para equipamentos, tecnologias e protocolos confirmados pela Skin Lounge.</p>
+              <span class="placeholder-badge">Adicionar marcas/equipamentos após confirmação</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="philosophy-wrap">
+        <div class="philosophy-art reveal scale image-reveal" id="parallaxArt" aria-label="Imagem editorial conceitual para rejuvenescimento"></div>
+
+        <div class="philosophy-copy">
+          <div class="eyebrow reveal">Nossa filosofia</div>
+          <h2 class="reveal title-reveal">Rejuvenescimento <span>natural.</span> Com precisão.</h2>
+          <p class="reveal">
+            Mais do que transformar, nosso objetivo é valorizar. Protocolos personalizados e integrados
+            para resultados naturais, equilibrados e alinhados às características de cada paciente.
+          </p>
+          <div class="draw-line reveal" style="margin:32px 0 22px"></div>
+          <div class="demo-note reveal">Imagem editorial demonstrativa — substituir por fotografia oficial</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profissionais">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">04 / Profissionais</div>
+            <h2 class="section-title reveal title-reveal">Quem cuida de <em>você.</em></h2>
+          </div>
+          <p class="section-sub reveal">
+            Estrutura preparada para apresentar o corpo clínico com foto, nome, especialidade,
+            registro profissional e breve biografia — sem inventar dados ainda não fornecidos.
+          </p>
+        </div>
+
+        <div class="professional-grid">
+          <article class="professional reveal stagger-item">
+            <div class="professional-photo">
+              <div class="silhouette"></div>
+              <small>Foto oficial</small>
+            </div>
+            <h3>Nome do profissional</h3>
+            <p>Breve apresentação profissional será inserida após validação das informações oficiais.</p>
+            <div class="meta">Especialidade • registro profissional</div>
+          </article>
+
+          <article class="professional reveal stagger-item">
+            <div class="professional-photo">
+              <div class="silhouette"></div>
+              <small>Foto oficial</small>
+            </div>
+            <h3>Nome do profissional</h3>
+            <p>Breve apresentação profissional será inserida após validação das informações oficiais.</p>
+            <div class="meta">Especialidade • registro profissional</div>
+          </article>
+
+          <article class="professional reveal stagger-item">
+            <div class="professional-photo">
+              <div class="silhouette"></div>
+              <small>Foto oficial</small>
+            </div>
+            <h3>Nome do profissional</h3>
+            <p>Breve apresentação profissional será inserida após validação das informações oficiais.</p>
+            <div class="meta">Especialidade • registro profissional</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="results" id="resultados">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">05 / Resultados</div>
+            <h2 class="section-title reveal title-reveal">Individualidade em cada <em>resultado.</em></h2>
+          </div>
+          <p class="section-sub reveal">
+            Galeria preparada exclusivamente para materiais autorizados da clínica.
+            Nenhuma imagem demonstrativa representa paciente ou resultado real.
+          </p>
+        </div>
+
+        <div class="results-grid">
+          <div class="result-large reveal scale image-reveal">
+            <div class="result-split"><div></div><div></div></div>
+            <span class="result-note">Placeholder visual</span>
+            <span class="result-label">Inserir resultado autorizado</span>
+          </div>
+
+          <div class="result-stack">
+            <div class="result-small reveal scale image-reveal">
+              <div class="result-split"><div></div><div></div></div>
+              <span class="result-label">Material autorizado</span>
+            </div>
+            <div class="result-small reveal scale image-reveal">
+              <div class="result-split"><div></div><div></div></div>
+              <span class="result-label">Material autorizado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="avaliacoes">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">06 / Google Reviews</div>
+            <h2 class="section-title reveal title-reveal">A experiência de quem <em>confia.</em></h2>
+          </div>
+          <button class="button ghost placeholder-link reveal" type="button">Ver avaliações no Google</button>
+        </div>
+
+        <div class="review-grid">
+          <article class="review-card reveal stagger-item">
+            <div class="stars">★★★★★</div>
+            <blockquote>“Depoimento do paciente será inserido aqui.”</blockquote>
+            <footer>Placeholder • avaliação real pendente</footer>
+          </article>
+          <article class="review-card reveal stagger-item">
+            <div class="stars">★★★★★</div>
+            <blockquote>“Depoimento do paciente será inserido aqui.”</blockquote>
+            <footer>Placeholder • avaliação real pendente</footer>
+          </article>
+          <article class="review-card reveal stagger-item">
+            <div class="stars">★★★★★</div>
+            <blockquote>“Depoimento do paciente será inserido aqui.”</blockquote>
+            <footer>Placeholder • avaliação real pendente</footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-section" id="agendamento">
+      <div class="wrap booking-shell">
+        <div class="booking-intro reveal">
+          <div class="section-number" style="color:#D6B879">07 / Agendamento Online</div>
+          <h2>Seu cuidado, no <em>seu tempo.</em></h2>
+          <p>
+            Escolha o atendimento, consulte uma data e um horário disponíveis e finalize sua solicitação
+            sem precisar sair do site.
+          </p>
+
+          <div class="booking-demo-note">
+            <b>Demonstração comercial</b>
+            Nesta prévia, datas e horários são apenas demonstrativos. Na versão oficial,
+            esta interface será conectada à disponibilidade real da Clínica Skin Lounge.
+          </div>
+        </div>
+
+        <div class="booking-panel reveal scale" id="bookingPanel">
+          <div class="booking-progress" aria-hidden="true">
+            <span class="active"></span><span></span><span></span><span></span>
+          </div>
+
+          <!-- STEP 1 -->
+          <div class="booking-step active" data-step="1">
+            <div class="booking-kicker">Etapa 01 / 04</div>
+            <h3>Escolha o atendimento.</h3>
+            <p class="booking-help">Selecione a opção que melhor corresponde ao cuidado que você procura.</p>
+
+            <div class="procedure-options">
+              <button class="procedure-option" type="button" data-procedure="Consulta — Dermatologia Clínica">
+                <span><small>Dermatologia</small><strong>Consulta — Dermatologia Clínica</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Dermatologia Estética">
+                <span><small>Dermatologia</small><strong>Consulta — Dermatologia Estética</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Tricologia (capilar)">
+                <span><small>Tricologia</small><strong>Consulta — Tricologia (capilar)</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Nutricionista">
+                <span><small>Nutrição</small><strong>Consulta — Nutricionista</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Consulta — Esteticista">
+                <span><small>Estética</small><strong>Consulta — Esteticista</strong></span><i>✓</i>
+              </button>
+              <button class="procedure-option" type="button" data-procedure="Limpeza de Pele — Esteticista">
+                <span><small>Estética</small><strong>Limpeza de Pele — Esteticista</strong></span><i>✓</i>
+              </button>
+            </div>
+
+            <div class="booking-actions">
+              <span></span>
+              <button class="button gold booking-next" id="bookingNext1" type="button" disabled>Escolher data →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="booking-step" data-step="2">
+            <div class="booking-kicker">Etapa 02 / 04</div>
+            <h3>Escolha uma data.</h3>
+            <p class="booking-help">Datas abaixo são demonstrativas e serão sincronizadas com a agenda oficial.</p>
+
+            <div class="date-options" id="dateOptions"></div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="1">← Voltar</button>
+              <button class="button gold booking-next" id="bookingNext2" type="button" disabled>Ver horários →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="booking-step" data-step="3">
+            <div class="booking-kicker">Etapa 03 / 04</div>
+            <h3>Escolha um horário.</h3>
+            <p class="booking-help">Somente horários disponíveis para a data selecionada serão exibidos na versão oficial.</p>
+
+            <div class="time-options" id="timeOptions"></div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="2">← Voltar</button>
+              <button class="button gold booking-next" id="bookingNext3" type="button" disabled>Continuar →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="booking-step" data-step="4">
+            <div class="booking-kicker">Etapa 04 / 04</div>
+            <h3>Confirme seus dados.</h3>
+            <p class="booking-help">Na versão oficial, estes dados serão enviados com segurança ao sistema de agendamento da clínica.</p>
+
+            <div class="booking-summary">
+              <div class="summary-line"><span>Atendimento</span><b id="summaryProcedure">—</b></div>
+              <div class="summary-line"><span>Data</span><b id="summaryDate">—</b></div>
+              <div class="summary-line"><span>Horário</span><b id="summaryTime">—</b></div>
+            </div>
+
+            <form class="booking-form" id="bookingForm">
+              <div class="booking-field full">
+                <label for="patientName">Nome</label>
+                <input id="patientName" name="name" type="text" placeholder="Seu nome completo" required>
+              </div>
+              <div class="booking-field">
+                <label for="patientPhone">Telefone</label>
+                <input id="patientPhone" name="phone" type="tel" placeholder="(00) 00000-0000" required>
+              </div>
+              <div class="booking-field">
+                <label for="patientEmail">E-mail</label>
+                <input id="patientEmail" name="email" type="email" placeholder="voce@exemplo.com" required>
+              </div>
+            </form>
+
+            <div class="booking-demo-note">
+              <b>Privacidade nesta prévia</b>
+              Nenhuma informação preenchida nesta demonstração é enviada ou armazenada.
+            </div>
+
+            <div class="booking-actions">
+              <button class="booking-back" type="button" data-back="3">← Voltar</button>
+              <button class="button gold booking-next" id="bookingConfirm" type="button">Confirmar agendamento</button>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="booking-step" data-step="5">
+            <div class="booking-success">
+              <div class="booking-success-mark">✓</div>
+              <div class="booking-kicker">Fluxo demonstrativo concluído</div>
+              <h3>Agendamento solicitado.</h3>
+              <p>
+                Na versão oficial, esta etapa confirmará o horário no sistema da clínica e poderá enviar
+                a confirmação ao paciente por e-mail ou outro canal definido pela Skin Lounge.
+              </p>
+              <button class="button ghost" id="bookingRestart" type="button" style="margin-top:22px">Novo agendamento</button>
+            </div>
+          </div>
+
+          <div class="support-box">
+            <div>
+              <strong>Precisa de ajuda?</strong>
+              <span>O WhatsApp permanece disponível apenas como canal de suporte ao paciente.</span>
+            </div>
+            <button class="button ghost whatsapp-support" type="button">Falar no WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="final-cta">
+      <div class="wrap">
+        <div class="eyebrow reveal" style="justify-content:center;color:#D4B878">Skin Lounge • Cruzeiro — SP</div>
+        <h2 class="reveal title-reveal">Seu cuidado começa com uma conversa.</h2>
+        <p class="reveal">Escolha seu atendimento, consulte a disponibilidade e agende diretamente pela experiência digital da Skin Lounge.</p>
+        <button class="button gold wide booking-trigger reveal magnetic" type="button">Agendar online ↗</button>
+      </div>
+    </section>
+
+    <section id="contato">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-number reveal">08 / Localização</div>
+            <h2 class="section-title reveal title-reveal">Encontre a <em>Skin Lounge.</em></h2>
+          </div>
+          <p class="section-sub reveal">Cruzeiro — São Paulo. Endereço, horários e links oficiais serão conectados após fornecimento pela clínica.</p>
+        </div>
+
+        <div class="location-grid">
+          <div class="location-info reveal">
+            <div class="eyebrow">Localização</div>
+            <h3>Cruzeiro — SP</h3>
+
+            <div class="info-line">
+              <small>Endereço</small>
+              <span>ENDEREÇO DA CLÍNICA</span>
+            </div>
+            <div class="info-line">
+              <small>Atendimento</small>
+              <span>HORÁRIO DE ATENDIMENTO</span>
+            </div>
+            <div class="info-line">
+              <small>WhatsApp — suporte</small>
+              <span>LINK / NÚMERO DE SUPORTE A INSERIR</span>
+            </div>
+            <div class="info-line">
+              <small>Instagram</small>
+              <span>@clinicaskinlounge</span>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+              <button class="button gold placeholder-link" type="button">Como chegar</button>
+              <button class="button ghost placeholder-link" type="button">Google Reviews</button>
+            </div>
+          </div>
+
+          <div class="map-placeholder reveal scale image-reveal" aria-label="Espaço reservado para mapa da Clínica Skin Lounge">
+            <div class="map-road"></div>
+            <div class="map-road r2"></div>
+            <div class="map-pin"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="brand-mark">SL</span>
+          <h3>Clínica Skin Lounge</h3>
+          <p>Medicina e Estética Integrativa. Rejuvenescimento natural, envelhecimento saudável e protocolos personalizados.</p>
+        </div>
+
+        <div class="footer-col">
+          <b>Navegação</b>
+          <a href="#inicio">Início</a>
+          <a href="#clinica">A Clínica</a>
+          <a href="#especialidades">Especialidades</a>
+          <a href="#profissionais">Profissionais</a>
+          <a href="#contato">Contato</a>
+        </div>
+
+        <div class="footer-col">
+          <b>Contato</b>
+          <a href="https://www.instagram.com/clinicaskinlounge/" target="_blank" rel="noopener noreferrer">@clinicaskinlounge ↗</a>
+          <button class="button ghost whatsapp-support" type="button" style="margin-top:8px">Suporte pelo WhatsApp</button>
+          <span style="margin-top:16px">Cruzeiro — SP</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Clínica Skin Lounge. Todos os direitos reservados.</span>
+        <span>Protótipo comercial • links e dados pendentes de validação</span>
+      </div>
+    </div>
+  </footer>
+  </div><!-- /site-scroll -->
+
+  <script>
+    // Safe intro exit
+    const intro = document.getElementById('intro');
+    const dismissIntro = () => intro?.classList.add('done');
+    window.addEventListener('load', () => setTimeout(dismissIntro, 1850));
+    intro?.addEventListener('click', dismissIntro);
+    window.addEventListener('keydown', (e) => {
+      if (['Escape','Enter',' '].includes(e.key)) dismissIntro();
+    });
+
+
+    const siteScroll = document.getElementById('siteScroll');
+
+    // Linha de progresso no topo — baseada no viewport interno do site
+    const scrollProgress = document.getElementById('scrollProgress');
+    const updateScrollProgress = () => {
+      if(!scrollProgress || !siteScroll) return;
+      const max = siteScroll.scrollHeight - siteScroll.clientHeight;
+      const pct = max > 0 ? (siteScroll.scrollTop / max) * 100 : 0;
+      scrollProgress.style.width = pct + '%';
+    };
+    updateScrollProgress();
+    siteScroll?.addEventListener('scroll', updateScrollProgress, {passive:true});
+
+    // Header
+    const header = document.getElementById('header');
+    const updateHeader = () => header?.classList.toggle('scrolled', (siteScroll?.scrollTop || 0) > 30);
+    updateHeader();
+    siteScroll?.addEventListener('scroll', updateHeader, {passive:true});
+
+    // Mobile menu
+    const toggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function setMenu(open){
+      mobileMenu.classList.toggle('open', open);
+      mobileMenu.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('nav-open', open);
+    }
+
+    toggle?.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('keydown', e => {
+      if(e.key === 'Escape') setMenu(false);
+    });
+
+    // Reveal on scroll — agora observado dentro do viewport próprio do site
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduceMotion && 'IntersectionObserver' in window && siteScroll) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: siteScroll,
+        threshold: 0.16,
+        rootMargin: '0px 0px -12% 0px'
+      });
+
+      document.querySelectorAll('.specialties-grid, .tech-list, .professional-grid, .review-grid').forEach((group) => {
+        group.querySelectorAll('.reveal').forEach((el, index) => {
+          el.style.transitionDelay = `${index * 150}ms`;
+        });
+      });
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+    }
+
+    // Pointer glow
+    const ambient = document.getElementById('ambient');
+    if(!reduceMotion && window.matchMedia('(pointer:fine)').matches){
+      window.addEventListener('pointermove', (e) => {
+        ambient.style.left = e.clientX + 'px';
+        ambient.style.top = e.clientY + 'px';
+      }, {passive:true});
+    } else if(ambient){
+      ambient.style.display = 'none';
+    }
+
+    // Hero depth
+    const heroVisual = document.getElementById('heroVisual');
+    const heroFrame = document.getElementById('heroFrame');
+    if(!reduceMotion && window.matchMedia('(pointer:fine)').matches){
+      heroVisual?.addEventListener('pointermove', (e) => {
+        const r = heroVisual.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        heroFrame.style.transform = `rotateY(${(-3 + x*4).toFixed(2)}deg) rotateX(${(1 - y*3).toFixed(2)}deg) translateY(${(-y*5).toFixed(1)}px)`;
+      });
+      heroVisual?.addEventListener('pointerleave', () => {
+        heroFrame.style.transform = 'rotateY(-3deg) rotateX(1deg)';
+      });
+    }
+
+    // Subtle parallax
+    const parallaxArt = document.getElementById('parallaxArt');
+    if(!reduceMotion){
+      siteScroll?.addEventListener('scroll', () => {
+        if(!parallaxArt) return;
+        const r = parallaxArt.getBoundingClientRect();
+        if(r.bottom > 0 && r.top < innerHeight){
+          const progress = (innerHeight - r.top) / (innerHeight + r.height);
+          parallaxArt.style.backgroundPosition = `center ${50 + (progress-.5)*8}%`;
+        }
+      }, {passive:true});
+    }
+
+    // Magnetic CTA
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      if(reduceMotion || !window.matchMedia('(pointer:fine)').matches) return;
+      btn.addEventListener('pointermove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width/2);
+        const y = e.clientY - (r.top + r.height/2);
+        btn.style.transform = `translate(${x*.08}px, ${y*.08}px)`;
+      });
+      btn.addEventListener('pointerleave', () => btn.style.transform = '');
+    });
+
+
+    // ---------------------------------------------------------
+    // AGENDAMENTO ONLINE — demonstração funcional
+    // ---------------------------------------------------------
+    const bookingState = {
+      procedure: '',
+      dateISO: '',
+      dateLabel: '',
+      time: ''
+    };
+
+    const bookingPanel = document.getElementById('bookingPanel');
+    const bookingSteps = [...document.querySelectorAll('.booking-step')];
+    const bookingProgress = [...document.querySelectorAll('.booking-progress span')];
+
+    function goToBookingStep(step){
+      bookingSteps.forEach(el => el.classList.toggle('active', Number(el.dataset.step) === step));
+      bookingProgress.forEach((el, index) => el.classList.toggle('active', index < Math.min(step, 4)));
+      if(bookingPanel){
+        bookingPanel.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    }
+
+    function scrollToBooking(){
+      document.getElementById('agendamento')?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    document.querySelectorAll('.booking-trigger').forEach(btn => {
+      btn.addEventListener('click', scrollToBooking);
+    });
+
+    // Speciality "Conhecer" links now take the visitor to online booking.
+    document.querySelectorAll('.specialty-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToBooking();
+      });
+    });
+
+    // Step 1
+    const procedureButtons = [...document.querySelectorAll('.procedure-option')];
+    const next1 = document.getElementById('bookingNext1');
+
+    procedureButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        procedureButtons.forEach(item => item.classList.remove('selected'));
+        btn.classList.add('selected');
+        bookingState.procedure = btn.dataset.procedure || '';
+        next1.disabled = false;
+      });
+    });
+
+    next1?.addEventListener('click', () => {
+      buildDemoDates();
+      goToBookingStep(2);
+    });
+
+    // Demo date availability.
+    // Replace this generator with the clinic's real scheduling API/database.
+    const dateOptions = document.getElementById('dateOptions');
+    const next2 = document.getElementById('bookingNext2');
+    const weekdays = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+    function buildDemoDates(){
+      if(!dateOptions) return;
+      dateOptions.innerHTML = '';
+      bookingState.dateISO = '';
+      bookingState.dateLabel = '';
+      next2.disabled = true;
+
+      const cursor = new Date();
+      cursor.setDate(cursor.getDate() + 1);
+
+      let created = 0;
+      while(created < 8){
+        if(cursor.getDay() !== 0){
+          const d = new Date(cursor);
+          const iso = [
+            d.getFullYear(),
+            String(d.getMonth()+1).padStart(2,'0'),
+            String(d.getDate()).padStart(2,'0')
+          ].join('-');
+          const label = `${String(d.getDate()).padStart(2,'0')} ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'date-option';
+          btn.dataset.iso = iso;
+          btn.dataset.label = label;
+          btn.innerHTML = `<small>${weekdays[d.getDay()]}</small><b>${String(d.getDate()).padStart(2,'0')}</b><span>${months[d.getMonth()]} · demo</span>`;
+
+          btn.addEventListener('click', () => {
+            dateOptions.querySelectorAll('.date-option').forEach(item => item.classList.remove('selected'));
+            btn.classList.add('selected');
+            bookingState.dateISO = iso;
+            bookingState.dateLabel = label;
+            next2.disabled = false;
+          });
+
+          dateOptions.appendChild(btn);
+          created++;
+        }
+        cursor.setDate(cursor.getDate() + 1);
+      }
+    }
+
+    next2?.addEventListener('click', () => {
+      buildDemoTimes();
+      goToBookingStep(3);
+    });
+
+    // Step 3
+    const timeOptions = document.getElementById('timeOptions');
+    const next3 = document.getElementById('bookingNext3');
+
+    function buildDemoTimes(){
+      if(!timeOptions) return;
+      timeOptions.innerHTML = '';
+      bookingState.time = '';
+      next3.disabled = true;
+
+      // Demonstrative only. This array is NOT clinic availability.
+      const slotSets = [
+        ['09:00','10:30','14:00','15:30'],
+        ['08:30','11:00','13:30','16:00','17:30'],
+        ['09:30','11:30','14:30','16:30']
+      ];
+      const seed = bookingState.dateISO
+        ? Number(bookingState.dateISO.slice(-2)) % slotSets.length
+        : 0;
+
+      slotSets[seed].forEach(time => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-option';
+        btn.textContent = time;
+        btn.addEventListener('click', () => {
+          timeOptions.querySelectorAll('.time-option').forEach(item => item.classList.remove('selected'));
+          btn.classList.add('selected');
+          bookingState.time = time;
+          next3.disabled = false;
+        });
+        timeOptions.appendChild(btn);
+      });
+    }
+
+    next3?.addEventListener('click', () => {
+      document.getElementById('summaryProcedure').textContent = bookingState.procedure || '—';
+      document.getElementById('summaryDate').textContent = bookingState.dateLabel || '—';
+      document.getElementById('summaryTime').textContent = bookingState.time || '—';
+      goToBookingStep(4);
+    });
+
+    // Back buttons
+    document.querySelectorAll('[data-back]').forEach(btn => {
+      btn.addEventListener('click', () => goToBookingStep(Number(btn.dataset.back)));
+    });
+
+    // Step 4 confirmation: demo only, no network request or persistence.
+    const bookingForm = document.getElementById('bookingForm');
+    document.getElementById('bookingConfirm')?.addEventListener('click', () => {
+      if(!bookingForm?.reportValidity()) return;
+      goToBookingStep(5);
+    });
+
+    document.getElementById('bookingRestart')?.addEventListener('click', () => {
+      bookingState.procedure = '';
+      bookingState.dateISO = '';
+      bookingState.dateLabel = '';
+      bookingState.time = '';
+      procedureButtons.forEach(item => item.classList.remove('selected'));
+      if(bookingForm) bookingForm.reset();
+      if(next1) next1.disabled = true;
+      goToBookingStep(1);
+    });
+
+    // WhatsApp remains secondary support only.
+    document.querySelectorAll('.whatsapp-support').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showPrototypeToast('WhatsApp de suporte', 'Na versão oficial, este botão será conectado ao canal de suporte da clínica.');
+      });
+    });
+
+    // Placeholder actions
+    const prototypeToast = document.getElementById('prototypeToast');
+    let toastTimer;
+
+    function showPrototypeToast(title='Protótipo comercial', message='Este botão será conectado ao link oficial da clínica na versão final.'){
+      if(!prototypeToast) return;
+      const titleEl = prototypeToast.querySelector('strong');
+      const textEl = prototypeToast.querySelector('span');
+      if(titleEl) titleEl.textContent = title;
+      if(textEl) textEl.textContent = message;
+      prototypeToast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => prototypeToast.classList.remove('show'), 3200);
+    }
+
+    function placeholderNotice(){
+      showPrototypeToast();
+    }
+    document.querySelectorAll('.placeholder-link').forEach(el => {
+      el.addEventListener('click', placeholderNotice);
+    });
+  </script>
+</body>
+</html>
